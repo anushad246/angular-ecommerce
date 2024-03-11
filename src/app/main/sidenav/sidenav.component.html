@@ -1,0 +1,6 @@
+<div class="example-sidenav sidenav-background flex flex-col">
+    <p class="text-4xl justify-center flex py-6 text-white font-semibold border-b-2">Ecommerce</p>
+    <div class="justify-center flex" *ngFor="let navOpt of menuList" >
+        <button mat-button class="px-4 mx-3" (click)="getCurrentNav(navOpt)" [routerLink]="navOpt.url">{{navOpt.title}}</button>
+    </div>
+</div>

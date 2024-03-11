@@ -1,0 +1,23 @@
+.example-container {
+  width: 100%;
+  height: 100%;
+}
+
+.sidenav-background {
+  background: linear-gradient(to right, #8ac9e5, #1babdb);
+}
+
+.header {
+  height: 90px;
+}
+
+// .material-icons {
+//   top: 27px;
+//   position: relative;
+//   font-size: 29px
+// }
+
+::ng-deep.box{
+  box-shadow: none !important;
+  border-radius: 10px !important;
+}

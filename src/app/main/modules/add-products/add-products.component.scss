@@ -1,0 +1,32 @@
+::ng-deep.box {
+    box-shadow: none !important;
+    border-radius: 10px !important;
+}
+
+.color {
+    color: red;
+}
+
+.full-width {
+    width: 100%;
+    height: 50%;
+}
+
+.Product-Title-field-width {
+    width: 50%;
+}
+
+.Publish {
+    height: fit-content;
+    box-shadow: none !important;
+    border-radius: 10px !important;
+}
+
+.dropdown-width {
+    width: 100%;
+}
+
+::ng-deep.custom-textarea.mat-mdc-text-field-wrapper {
+    min-width: 300px;
+    max-width: auto;
+}

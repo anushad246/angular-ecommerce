@@ -1,0 +1,19 @@
+<mat-drawer-container class=" flex flex-row example-container">
+    <mat-drawer #drawer class=" w-1/6 sidenav-background" mode="side">
+        <app-sidenav></app-sidenav>
+    </mat-drawer>
+    <div class="w-full h-full">
+        <mat-card class="flex flex-row border-b-2 divide-slate-400 header box">
+            <div>
+                <span (click)="toggleDrawer()" *ngIf="!showFiller">
+                    <mat-icon>arrow_right_alt</mat-icon>
+                </span>
+                <span (click)="toggleDrawer()" *ngIf="showFiller">
+                    <mat-icon>subject</mat-icon>
+                </span>
+            </div>
+            <!-- <div>Create Product</div> -->
+        </mat-card>
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>

@@ -1,0 +1,12 @@
+.sidenav-background {
+    background: linear-gradient(to right, #8ac9e5, #1babdb);
+    height: 100%;
+}
+::ng-deep.mdc-button .mdc-button__label{
+    color: white;
+}
+.mat-mdc-button.mat-mdc-button-base{
+    width: 100%;
+    height: 150%;
+    margin: 1rem;
+}
