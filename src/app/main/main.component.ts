@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
@@ -6,12 +6,19 @@ import { MatDrawer } from '@angular/material/sidenav';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   showFiller = false;
   @ViewChild('drawer') drawer!: MatDrawer;
+  menu: any;
 
   toggleDrawer() {
     this.drawer.toggle();
     this.showFiller = !this.showFiller;
   }
+
+  selectedMenuOption(selectedOpt: any) {
+    this.menu = selectedOpt;
+  }
+
+  ngOnInit(): void {}
 }

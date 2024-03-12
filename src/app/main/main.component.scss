@@ -11,13 +11,25 @@
   height: 90px;
 }
 
-// .material-icons {
-//   top: 27px;
-//   position: relative;
-//   font-size: 29px
-// }
+.material-icons {
+  display: flex;
+  align-items: center;
+  font-size: 29px;
+}
 
-::ng-deep.box{
+.title-position {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+}
+
+::ng-deep.box {
   box-shadow: none !important;
   border-radius: 10px !important;
+}
+
+
+::ng-deep.title-position.mdc-card {
+  display: flex;
+  flex-direction: row;
 }

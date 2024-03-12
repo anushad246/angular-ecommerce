@@ -1,10 +1,10 @@
 <mat-drawer-container class=" flex flex-row example-container">
     <mat-drawer #drawer class=" w-1/6 sidenav-background" mode="side">
-        <app-sidenav></app-sidenav>
+        <app-sidenav (selectedMenuOption)="selectedMenuOption($event)"></app-sidenav>
     </mat-drawer>
     <div class="w-full h-full">
-        <mat-card class="flex flex-row border-b-2 divide-slate-400 header box">
-            <div>
+        <mat-card class=" title-position border-b-2 divide-slate-400 header box justify-between">
+            <div class="px-5">
                 <span (click)="toggleDrawer()" *ngIf="!showFiller">
                     <mat-icon>arrow_right_alt</mat-icon>
                 </span>
@@ -12,7 +12,7 @@
                     <mat-icon>subject</mat-icon>
                 </span>
             </div>
-            <!-- <div>Create Product</div> -->
+            <div class="title-position px-5 font-medium" *ngIf="this.menu">{{this.menu.title}}</div>
         </mat-card>
         <router-outlet></router-outlet>
     </div>
