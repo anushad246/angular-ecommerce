@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import {
+  Validators,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-add-products',
@@ -8,6 +16,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['./add-products.component.scss'],
 })
 export class AddProductsComponent implements OnInit {
+  addProductForm!: FormGroup;
+
   keywords = ['angular', 'how-to', 'tutorial', 'accessibility'];
   published = [
     { value: 'draft', viewValue: 'Draft' },
@@ -31,6 +41,7 @@ export class AddProductsComponent implements OnInit {
     { value: 'watches', viewValue: 'Watches' },
   ];
 
+  constructor(private fb: FormBuilder) {}
   selectedFood = this.published[0].value;
   selectedVisibility = this.visibility[0].value;
   selectedProductCategory = this.productCategory[0].value;
@@ -50,5 +61,49 @@ export class AddProductsComponent implements OnInit {
     event.chipInput!.clear();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm(): void {
+    this.addProductForm = this.fb.group({
+      brandName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(20),
+          Validators.maxLength(50),
+        ],
+      ],
+    });
+  }
+
+  get brandNameControl(): UntypedFormControl {
+    return this.addProductForm.get('brandName') as UntypedFormControl;
+  }
+
+  errors = {
+    brandName: '',
+  };
+
+
+
+  formValidationMessages = {
+
+    brandName: {
+      required: 'Brand Title is required.',
+      maxlength: 'Max Length should be 50',
+      minlength: 'Min Length should be 20',
+    },
+
+
+  };
+
+  onSubmit() {
+    console.log('Form submitted:', this.addProductForm.value);
+  }
+
+  onBackHome(){
+    
+  }
 }

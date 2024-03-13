@@ -18,7 +18,13 @@ export class MainComponent implements OnInit {
 
   selectedMenuOption(selectedOpt: any) {
     this.menu = selectedOpt;
+    localStorage.setItem('selectedMenu', JSON.stringify(this.menu));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const storedMenu = localStorage.getItem('selectedMenu');
+    if (storedMenu) {
+      this.menu = JSON.parse(storedMenu);
+    }
+  }
 }
