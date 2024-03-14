@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
 import {
-  Validators,
-  UntypedFormArray,
-  UntypedFormBuilder,
+  FormBuilder,
+  FormGroup,
   UntypedFormControl,
-  UntypedFormGroup,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-add-products',
@@ -16,7 +15,7 @@ import {
   styleUrls: ['./add-products.component.scss'],
 })
 export class AddProductsComponent implements OnInit {
-  addProductForm!: FormGroup;
+  addProductForm: FormGroup;
 
   keywords = ['angular', 'how-to', 'tutorial', 'accessibility'];
   published = [
@@ -41,7 +40,7 @@ export class AddProductsComponent implements OnInit {
     { value: 'watches', viewValue: 'Watches' },
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private formBuilder: FormBuilder) {}
   selectedFood = this.published[0].value;
   selectedVisibility = this.visibility[0].value;
   selectedProductCategory = this.productCategory[0].value;
@@ -65,45 +64,33 @@ export class AddProductsComponent implements OnInit {
     this.buildForm();
   }
 
-  buildForm(): void {
+  buildForm() {
     this.addProductForm = this.fb.group({
-      brandName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(20),
-          Validators.maxLength(50),
-        ],
-      ],
+      productTitle: new FormControl(''),
+      description: new FormControl(''),
+      ManufacturerName: new FormControl(''),
+      manufacturerBrand: new FormControl(''),
+      stocks: new FormControl(''),
+      price: new FormControl(''),
+      discount: new FormControl(''),
+      orders: new FormControl(''),
+      status: new FormControl(''),
+      visibility: new FormControl(''),
+      productCategory: new FormControl(''),
+      shortDescription: new FormControl(''),
+      dateRange: new FormGroup({
+        startDate: new FormControl(''),
+        endDate: new FormControl(''),
+      }),
+      newKeyword: new FormControl(''),
     });
   }
-
-  get brandNameControl(): UntypedFormControl {
-    return this.addProductForm.get('brandName') as UntypedFormControl;
-  }
-
-  errors = {
-    brandName: '',
-  };
-
-
-
-  formValidationMessages = {
-
-    brandName: {
-      required: 'Brand Title is required.',
-      maxlength: 'Max Length should be 50',
-      minlength: 'Min Length should be 20',
-    },
-
-
-  };
 
   onSubmit() {
     console.log('Form submitted:', this.addProductForm.value);
   }
 
-  onBackHome(){
-    
+  onBackHome() {
+    this.addProductForm.reset();
   }
 }
