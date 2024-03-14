@@ -66,18 +66,58 @@ export class AddProductsComponent implements OnInit {
 
   buildForm() {
     this.addProductForm = this.fb.group({
-      productTitle: new FormControl(''),
-      description: new FormControl(''),
-      ManufacturerName: new FormControl(''),
-      manufacturerBrand: new FormControl(''),
-      stocks: new FormControl(''),
-      price: new FormControl(''),
-      discount: new FormControl(''),
-      orders: new FormControl(''),
-      status: new FormControl(''),
-      visibility: new FormControl(''),
-      productCategory: new FormControl(''),
-      shortDescription: new FormControl(''),
+      productTitle: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(60),
+        Validators.maxLength(100),
+        Validators.pattern('.*\\S.*[a-zA-z0-9]'),
+      ]),
+      ManufacturerName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.pattern('.*\\S.*[a-zA-z0-9]'),
+      ]),
+      manufacturerBrand: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.pattern('.*\\S.*[a-zA-z0-9]'),
+      ]),
+      stocks: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(9),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      price: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(9),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      discount: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(9),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      orders: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(9),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      status: new FormControl(this.published[0].value, []),
+      visibility: new FormControl(this.visibility[0].value, []),
+      productCategory: new FormControl(this.productCategory[0].value, []),
+      shortDescription: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.pattern('.*\\S.*[a-zA-z0-9]'),
+      ]),
       dateRange: new FormGroup({
         startDate: new FormControl(''),
         endDate: new FormControl(''),
@@ -85,6 +125,56 @@ export class AddProductsComponent implements OnInit {
       newKeyword: new FormControl(''),
     });
   }
+
+  get productTitle() {
+    return this.addProductForm.get('productTitle');
+  }
+
+  get description() {
+    return this.addProductForm.get('description');
+  }
+
+  get ManufacturerName() {
+    return this.addProductForm.get('ManufacturerName');
+  }
+
+  get manufacturerBrand() {
+    return this.addProductForm.get('manufacturerBrand');
+  }
+
+  get stocks() {
+    return this.addProductForm.get('stocks');
+  }
+
+  get price() {
+    return this.addProductForm.get('price');
+  }
+
+  get discount() {
+    return this.addProductForm.get('discount');
+  }
+
+  get orders() {
+    return this.addProductForm.get('orders');
+  }
+
+  get status() {
+    return this.addProductForm.get('status');
+  }
+
+  get visibilitys() {
+    return this.addProductForm.get('visibility');
+  }
+
+  get productCategorys() {
+    return this.addProductForm.get('productCategory');
+  }
+
+  get shortDescription() {
+    return this.addProductForm.get('shortDescription');
+  }
+
+
 
   onSubmit() {
     console.log('Form submitted:', this.addProductForm.value);

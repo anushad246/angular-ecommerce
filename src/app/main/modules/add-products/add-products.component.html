@@ -10,13 +10,20 @@
                     </div>
                     <div>
                         <mat-form-field class="name-text Product-Title-field-width" appearance="outline">
-                            <input #productTitle matInput [type]="'text'" required id="productTitle"
-                                formControlName="productTitle">
-                            <!-- <mat-error>{{formValidationMessages.brandName}}</mat-error> -->
+                            <input matInput [type]="'text'" required id="productTitle" formControlName="productTitle">
+                            <mat-error
+                                *ngIf="addProductForm.get('productTitle').invalid && (addProductForm.get('productTitle').dirty || addProductForm.get('productTitle').touched)">
+                                <div *ngIf="addProductForm.get('productTitle').errors['required']">Product Title is
+                                    required</div>
+                                <div *ngIf="addProductForm.get('productTitle').errors['minlength']">Product Title must
+                                    be at least 2 characters long</div>
+                                <div *ngIf="addProductForm.get('productTitle').errors['maxlength']">Product Title cannot
+                                    exceed 50 characters</div>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col mt-5">
                     <div class="col-3">
                         <div class="formLabel"><span class="txt-normal">Description<span class="color">*</span></span>
                         </div>
@@ -24,8 +31,17 @@
                     <div class="col-12">
                         <mat-form-field class="full-width custom-textarea" appearance="outline">
                             <textarea class="desc-text" #description matInput [type]="'text'"
-                                formControlName="description" id="description"></textarea>
-                            <!-- <mat-error>{{errors.description}}</mat-error> -->
+                                formControlName="description" id="description" required></textarea>
+                            <mat-error
+                                *ngIf="addProductForm.get('description').invalid && (addProductForm.get('description').dirty || addProductForm.get('description').touched)">
+                                <div *ngIf="addProductForm.get('description').errors['required']">Description is
+                                    required</div>
+                                <div *ngIf="addProductForm.get('description').errors['minlength']">Description must
+                                    be at least 60 characters long</div>
+                                <div *ngIf="addProductForm.get('description').errors['maxlength']">Description cannot
+                                    exceed 100 characters</div>
+                            </mat-error>
+
                         </mat-form-field>
                     </div>
                 </div>
@@ -45,7 +61,18 @@
                             <mat-form-field class="name-text " appearance="outline">
                                 <input #ManufacturerName matInput [type]="'text'" required
                                     formControlName="ManufacturerName" id="ManufacturerName">
-                                <!-- <mat-error>{{errors.name}}</mat-error> -->
+                                <mat-error
+                                    *ngIf="addProductForm.get('ManufacturerName').invalid && (addProductForm.get('ManufacturerName').dirty || addProductForm.get('ManufacturerName').touched)">
+                                    <div *ngIf="addProductForm.get('ManufacturerName').errors['required']">
+                                        ManufacturerName is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('ManufacturerName').errors['minlength']">
+                                        ManufacturerName must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('ManufacturerName').errors['maxlength']">
+                                        ManufacturerName cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -59,7 +86,18 @@
                             <mat-form-field class="name-text" appearance="outline">
                                 <input #manufacturerBrand matInput [type]="'text'" required
                                     formControlName="manufacturerBrand" id="manufacturerBrand">
-                                <!-- <mat-error>{{errors.name}}</mat-error> -->
+                                <mat-error
+                                    *ngIf="addProductForm.get('manufacturerBrand').invalid && (addProductForm.get('manufacturerBrand').dirty || addProductForm.get('manufacturerBrand').touched)">
+                                    <div *ngIf="addProductForm.get('manufacturerBrand').errors['required']">
+                                        manufacturerBrand is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('manufacturerBrand').errors['minlength']">
+                                        manufacturerBrand must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('manufacturerBrand').errors['maxlength']">
+                                        manufacturerBrand cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -71,7 +109,18 @@
                         <div>
                             <mat-form-field class="name-text" appearance="outline">
                                 <input #stocks matInput [type]="'number'" required formControlName="stocks" id="stocks">
-                                <!-- <mat-error>{{errors.name}}</mat-error> -->
+                                <mat-error
+                                    *ngIf="addProductForm.get('stocks').invalid && (addProductForm.get('stocks').dirty || addProductForm.get('stocks').touched)">
+                                    <div *ngIf="addProductForm.get('stocks').errors['required']">
+                                        stocks is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('stocks').errors['minlength']">
+                                        stocks must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('stocks').errors['maxlength']">
+                                        stocks cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -88,7 +137,18 @@
                         <div>
                             <mat-form-field class="name-text" appearance="outline">
                                 <input #price matInput [type]="'number'" required formControlName="price" id="price">
-                                <!-- <mat-error>{{errors.name}}</mat-error> -->
+                                <mat-error
+                                    *ngIf="addProductForm.get('price').invalid && (addProductForm.get('price').dirty || addProductForm.get('price').touched)">
+                                    <div *ngIf="addProductForm.get('price').errors['required']">
+                                        price is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('price').errors['minlength']">
+                                        price must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('price').errors['maxlength']">
+                                        price cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -101,7 +161,18 @@
                             <mat-form-field class="name-text" appearance="outline">
                                 <input #discount matInput [type]="'number'" required formControlName="discount"
                                     id="discount">
-                                <!-- <mat-error>{{errors.name}}</mat-error> -->
+                                <mat-error
+                                    *ngIf="addProductForm.get('discount').invalid && (addProductForm.get('discount').dirty || addProductForm.get('discount').touched)">
+                                    <div *ngIf="addProductForm.get('discount').errors['required']">
+                                        discount is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('discount').errors['minlength']">
+                                        discount must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('discount').errors['maxlength']">
+                                        discount cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -113,7 +184,18 @@
                         <div>
                             <mat-form-field class="name-text" appearance="outline">
                                 <input #orders matInput [type]="'number'" required formControlName="orders" id="orders">
-                                <!-- <mat-error>{{errors.name}}</mat-error> -->
+                                <mat-error
+                                    *ngIf="addProductForm.get('orders').invalid && (addProductForm.get('orders').dirty || addProductForm.get('orders').touched)">
+                                    <div *ngIf="addProductForm.get('orders').errors['required']">
+                                        orders is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('orders').errors['minlength']">
+                                        orders must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('orders').errors['maxlength']">
+                                        orders cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -135,7 +217,7 @@
                         </div>
                         <div>
                             <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-select [(value)]="selectedFood" formControlName="status" id="status">
+                                <mat-select [(value)]="selectedFood" formControlName="status" id="status" required>
                                     <mat-option [value]="option.value" *ngFor="let option of published">{{
                                         option.viewValue
                                         }}</mat-option>
@@ -149,7 +231,8 @@
                         </div>
                         <div>
                             <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-select [(value)]="selectedVisibility" formControlName="visibility" id="visibility">
+                                <mat-select [(value)]="selectedVisibility" formControlName="visibility" id="visibility"
+                                    required>
                                     <mat-option [value]="option.value" *ngFor="let option of visibility">{{
                                         option.viewValue
                                         }}</mat-option>
@@ -169,11 +252,26 @@
                         </div>
                         <div>
                             <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange">
+                                <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange" required>
                                     <input matStartDate placeholder="Start date" formControlName="startDate"
-                                        id="startdate">
-                                    <input matEndDate placeholder="End date" formControlName="endDate" id="enddate">
+                                        id="startdate" required>
+                                    <input matEndDate placeholder="End date" formControlName="endDate" id="enddate"
+                                        required>
                                 </mat-date-range-input>
+                                <mat-error>
+                                    <div
+                                        *ngIf="addProductForm.get('dateRange').hasError('required') && (addProductForm.get('dateRange.startDate').touched || addProductForm.get('dateRange.endDate').touched)">
+                                        Start date and end date are required.
+                                    </div>
+                                    <div
+                                        *ngIf="addProductForm.get('dateRange.startDate').hasError('required') && addProductForm.get('dateRange.startDate').touched">
+                                        Start date is required.
+                                    </div>
+                                    <div
+                                        *ngIf="addProductForm.get('dateRange.endDate').hasError('required') && addProductForm.get('dateRange.endDate').touched">
+                                        End date is required.
+                                    </div>
+                                </mat-error>
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
                             </mat-form-field>
@@ -192,7 +290,7 @@
                         <div>
                             <mat-form-field class="name-text dropdown-width" appearance="outline">
                                 <mat-select [(value)]="selectedProductCategory" formControlName="productCategory"
-                                    id="productCategory">
+                                    required id="productCategory">
                                     <mat-option [value]="option.value" *ngFor="let option of productCategory">{{
                                         option.viewValue
                                         }}</mat-option>
@@ -219,7 +317,8 @@
                                     </mat-chip-row>
                                 </mat-chip-grid>
                                 <input placeholder="New keyword..." [matChipInputFor]="chipGrid"
-                                    formControlName="newKeyword" id="newKeyword" (matChipInputTokenEnd)="add($event)" />
+                                    formControlName="newKeyword" id="newKeyword" (matChipInputTokenEnd)="add($event)"
+                                    required />
                             </mat-form-field>
                         </div>
                     </div>
@@ -236,8 +335,19 @@
                         <div>
                             <mat-form-field class="full-width" appearance="outline">
                                 <textarea class="desc-text" #shortDescription matInput [type]="'text'"
-                                    formControlName="shortDescription" id="shortDescription"></textarea>
-                                <!-- <mat-error>{{errors.description}}</mat-error> -->
+                                    formControlName="shortDescription" id="shortDescription" required></textarea>
+                                <mat-error
+                                    *ngIf="addProductForm.get('shortDescription').invalid && (addProductForm.get('shortDescription').dirty || addProductForm.get('shortDescription').touched)">
+                                    <div *ngIf="addProductForm.get('shortDescription').errors['required']">
+                                        orders is
+                                        required</div>
+                                    <div *ngIf="addProductForm.get('shortDescription').errors['minlength']">
+                                        orders must
+                                        be at least 60 characters long</div>
+                                    <div *ngIf="addProductForm.get('shortDescription').errors['maxlength']">
+                                        orders cannot
+                                        exceed 100 characters</div>
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
