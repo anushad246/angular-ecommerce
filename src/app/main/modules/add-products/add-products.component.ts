@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { JsonService } from 'src/app/servers/server';
 
 @Component({
   selector: 'app-add-products',
@@ -40,7 +41,12 @@ export class AddProductsComponent implements OnInit {
     { value: 'watches', viewValue: 'Watches' },
   ];
 
-  constructor(private fb: FormBuilder, private formBuilder: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
+    private jsonService: JsonService
+  ) {}
+
   selectedFood = this.published[0].value;
   selectedVisibility = this.visibility[0].value;
   selectedProductCategory = this.productCategory[0].value;
@@ -74,7 +80,7 @@ export class AddProductsComponent implements OnInit {
       description: new FormControl('', [
         Validators.required,
         Validators.minLength(60),
-        Validators.maxLength(100),
+        Validators.maxLength(500),
         Validators.pattern('.*\\S.*[a-zA-z0-9]'),
       ]),
       ManufacturerName: new FormControl('', [
@@ -115,14 +121,14 @@ export class AddProductsComponent implements OnInit {
       shortDescription: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(50),
+        Validators.maxLength(150),
         Validators.pattern('.*\\S.*[a-zA-z0-9]'),
       ]),
       dateRange: new FormGroup({
         startDate: new FormControl(''),
         endDate: new FormControl(''),
       }),
-      newKeyword: new FormControl(''),
+      newKeyword: new FormControl(this.keywords),
     });
   }
 
@@ -174,10 +180,31 @@ export class AddProductsComponent implements OnInit {
     return this.addProductForm.get('shortDescription');
   }
 
-
-
   onSubmit() {
-    console.log('Form submitted:', this.addProductForm.value);
+    if (this.addProductForm.valid) {
+      let addProduct = {
+        productTitle: this.addProductForm.value['productTitle'],
+        description: this.addProductForm.value['description'],
+        ManufacturerName: this.addProductForm.value['ManufacturerName'],
+        manufacturerBrand: this.addProductForm.value['manufacturerBrand'],
+        stocks: this.addProductForm.value['stocks'],
+        orders: this.addProductForm.value['orders'],
+        price: this.addProductForm.value['price'],
+        discount: this.addProductForm.value['discount'],
+        productCategory: this.addProductForm.value['productCategory'],
+        visibility: this.addProductForm.value['visibility'],
+        status: this.addProductForm.value['status'],
+        shortDescription: this.addProductForm.value['shortDescription'],
+        newKeyword: this.addProductForm.value[' newKeyword'],
+        dateRange: this.addProductForm.value['dateRange'],
+      };
+      this.jsonService.AddProduct(addProduct).subscribe((res) => {
+        if (res) {
+          this.onBackHome();
+        }
+      });
+      console.log(addProduct, 'valid form details');
+    }
   }
 
   onBackHome() {

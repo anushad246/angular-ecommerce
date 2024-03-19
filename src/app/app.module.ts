@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MainModule } from './main/main.module';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonService } from './servers/server';
 
 
 
@@ -18,9 +20,10 @@ import { MainModule } from './main/main.module';
     MatSlideToggleModule,
     MatButtonModule,
     AppRoutingModule,
-    MainModule
+    MainModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [JsonService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
