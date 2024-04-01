@@ -1,0 +1,16 @@
+.parent-cls {
+
+    display: flex;
+    align-items: center;
+
+    .example-card {
+        width: 50%;
+        height: auto;
+        margin: 10px;
+        box-shadow: none;
+    }
+    .gender{
+        padding-top: 7px;
+    }
+
+}

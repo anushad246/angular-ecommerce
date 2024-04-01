@@ -1,0 +1,66 @@
+<div class="parent-cls place-content-center">
+    <mat-card class="example-card">
+        <mat-card-header class="flex justify-center px-2 border-b-2 border-slate-300">
+            <mat-card-title class="pb-2">Employee Form</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mt-5 flex flex-col">
+            <div class="flex flex-row">
+                <div class="flex flex-col w-1/2 mx-2">
+                    <div>First Name</div>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <input type="text" matInput placeholder="Ex. Anusha">
+                    </mat-form-field>
+                </div>
+
+                <div class="flex flex-col w-1/2 mx-2">
+                    <div>Last Name</div>
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="Ex. Dammalapati">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="flex flex-row">
+                <div class="flex flex-col w-1/2 mx-2">
+                    <div>Email</div>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <input type="email" matInput placeholder="Ex. Anusha12@gmail.com">
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col w-1/2 mx-2">
+                    <div>Date of birth</div>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="flex flex-row my-3">
+                <div class="gender">Gender : </div>
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                    <mat-radio-button value="other">Others</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+
+            <div class="my-3">
+                <mat-label>Education</mat-label>
+                <mat-select name="qualification" class="w-1/2">
+                    <mat-option *ngFor="let i of qualification" [value]="i">
+                        {{i}}
+                    </mat-option>
+                </mat-select>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions class="flex place-content-end mb-3">
+            <button mat-raised-button color="primary" class="mx-2">Add Employee</button>
+            <button mat-raised-button color="warn" class="mx-2">Cancel</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

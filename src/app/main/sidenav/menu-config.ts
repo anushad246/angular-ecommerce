@@ -9,4 +9,9 @@ export const MENU_CONFIG = [
     code: 'PRODUCT_DETAILS',
     url: './product-details',
   },
+  {
+    title: 'Crud Operations',
+    code: 'BASIC-CRUD',
+    url: './basic-crud',
+  },
 ];

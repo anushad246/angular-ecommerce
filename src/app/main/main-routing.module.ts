@@ -23,6 +23,11 @@ const mainRoutes: Routes = [
             (m) => m.ProductDetailsModule
           ),
       },
+      {
+        path: 'basic-crud',
+        loadChildren: () =>
+          import('./modules/crud/crud.module').then((m) => m.CrudModule),
+      },
     ],
   },
 ];
@@ -31,5 +36,4 @@ const mainRoutes: Routes = [
   imports: [RouterModule.forChild(mainRoutes)],
   exports: [RouterModule],
 })
-
 export class MainRoutingModule {}
