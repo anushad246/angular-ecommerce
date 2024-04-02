@@ -19,5 +19,19 @@
         "endDate": "2024-03-22T18:30:00.000Z"
       }
     }
+  ],
+  "employes": [
+    {
+      "id": "40c7",
+      "firstName": "anusha",
+      "lastName": "dammalapati",
+      "email": "anus32@gmail.com",
+      "dob": "2024-04-10T18:30:00.000Z",
+      "gender": "",
+      "education": "Graduate",
+      "company": "aimlytics",
+      "experience": 2,
+      "package": 5
+    }
   ]
 }
