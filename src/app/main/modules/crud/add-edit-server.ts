@@ -12,4 +12,9 @@ export class JsonServiceAddEdit {
     const apiURL = 'http://localhost:3000/employes';
     return this.http.post(apiURL, data);
   }
+
+  getEmpData() {
+    const apiURL = 'http://localhost:3000/employes';
+    return this.http.get(apiURL);
+  }
 }

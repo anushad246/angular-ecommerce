@@ -14,12 +14,19 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmpDetailsComponent } from './emp-details/emp-details.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+
 
 
 @NgModule({
   declarations: [
     CrudComponent,
-    AddEditComponent
+    AddEditComponent,
+    EmpDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatRadioModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule 
   ]
 })
 export class CrudModule { }

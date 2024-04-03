@@ -27,11 +27,23 @@
       "lastName": "dammalapati",
       "email": "anus32@gmail.com",
       "dob": "2024-04-10T18:30:00.000Z",
-      "gender": "",
+      "gender": "female",
       "education": "Graduate",
       "company": "aimlytics",
       "experience": 2,
       "package": 5
+    },
+    {
+      "id": "40c6",
+      "firstName": "sandhya",
+      "lastName": "dammalapati",
+      "email": "sandhya32@gmail.com",
+      "dob": "2024-04-10T18:30:00.000Z",
+      "gender": "female",
+      "education": "Post Graduate",
+      "company": "AIG",
+      "experience": 6,
+      "package": 7
     }
   ]
 }

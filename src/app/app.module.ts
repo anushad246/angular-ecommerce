@@ -11,6 +11,7 @@ import { JsonService } from './servers/server';
 
 
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,7 +22,8 @@ import { JsonService } from './servers/server';
     MatButtonModule,
     AppRoutingModule,
     MainModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [JsonService],
   bootstrap: [AppComponent],
