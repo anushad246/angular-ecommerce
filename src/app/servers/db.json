@@ -22,28 +22,40 @@
   ],
   "employes": [
     {
-      "id": "40c7",
-      "firstName": "anusha",
-      "lastName": "dammalapati",
-      "email": "anus32@gmail.com",
-      "dob": "2024-04-10T18:30:00.000Z",
-      "gender": "female",
-      "education": "Graduate",
+      "id": "1dfd",
+      "firstName": "bala",
+      "lastName": "krishna",
+      "email": "bala34@gmail.com",
+      "dob": "2024-08-08T18:30:00.000Z",
+      "gender": "",
+      "education": "Diploma",
       "company": "aimlytics",
-      "experience": 2,
-      "package": 5
+      "experience": 10,
+      "package": 7000000
     },
     {
-      "id": "40c6",
-      "firstName": "sandhya",
-      "lastName": "dammalapati",
-      "email": "sandhya32@gmail.com",
-      "dob": "2024-04-10T18:30:00.000Z",
+      "id": "716c",
+      "firstName": "manoj",
+      "lastName": "kumar",
+      "email": "manoj@gmail.com",
+      "dob": "2021-08-06T18:30:00.000Z",
+      "gender": "male",
+      "education": "Diploma",
+      "company": "infosis",
+      "experience": 4,
+      "package": 1400000
+    },
+    {
+      "id": "8c7d",
+      "firstName": "jaya",
+      "lastName": "latha",
+      "email": "latha@gmail.com",
+      "dob": "2024-04-17T18:30:00.000Z",
       "gender": "female",
-      "education": "Post Graduate",
-      "company": "AIG",
-      "experience": 6,
-      "package": 7
+      "education": "Intermediate",
+      "company": "apollo",
+      "experience": 5,
+      "package": 500000
     }
   ]
 }

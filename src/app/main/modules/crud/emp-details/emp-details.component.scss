@@ -4,13 +4,13 @@
 }
 
 .mat-mdc-form-field {
-    font-size: 14px;
+    font-size: 20px;
     width: 100%;
 }
 
 td,
 th {
-    width: 10%;
+    width: 15%;
 }
 
 ::ng-deep.mdc-data-table__table {
@@ -18,4 +18,12 @@ th {
 }
 ::ng-deep.mat-mdc-text-field-wrapper {
     width: 20% !important;
+}
+.main-body{
+    padding-top: 20px;
+    margin: 0 auto;
+    max-width: 1248px;
+    mat-form-field{
+        width: 100%;
+    }
 }

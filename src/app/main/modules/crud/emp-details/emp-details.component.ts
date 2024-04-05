@@ -23,6 +23,7 @@ export class EmpDetailsComponent implements OnInit {
     'company',
     'experience',
     'package',
+    "action"
   ];
   dataSource: MatTableDataSource<any>;
 
@@ -49,5 +50,16 @@ export class EmpDetailsComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteEmpData(id){
+    this.jsonServiceAddEdit.getEmpDelete(id).subscribe({
+      next: (res)=>{
+        console.log(res, "delete api response")
+        alert("employee deleted")
+        this.getemapdata();
+      },
+      error: console.log
+    })
   }
 }
