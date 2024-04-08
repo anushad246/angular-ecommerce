@@ -18,6 +18,7 @@ import { EmpDetailsComponent } from './emp-details/emp-details.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TestComponentComponent } from './test-component/test-component.component';
 
 
 
@@ -27,7 +28,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   declarations: [
     CrudComponent,
     AddEditComponent,
-    EmpDetailsComponent
+    EmpDetailsComponent,
+    TestComponentComponent
   ],
   imports: [
     CommonModule,
