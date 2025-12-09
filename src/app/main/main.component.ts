@@ -1,10 +1,24 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatIconModule,
+    RouterModule,
+    SidenavComponent,
+  ],
 })
 export class MainComponent implements OnInit {
   showFiller = false;

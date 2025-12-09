@@ -1,10 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MENU_CONFIG } from './menu-config';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class SidenavComponent implements OnInit {
 
