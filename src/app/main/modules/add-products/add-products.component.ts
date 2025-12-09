@@ -1,19 +1,42 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
-  UntypedFormControl,
   FormControl,
-  ReactiveFormsModule,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 import { JsonService } from 'src/app/servers/server';
 
 @Component({
   selector: 'app-add-products',
   templateUrl: './add-products.component.html',
-  styleUrls: ['./add-products.component.scss'],
+  styleUrl: './add-products.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+  ],
 })
 export class AddProductsComponent implements OnInit {
   addProductForm: FormGroup;
@@ -45,7 +68,9 @@ export class AddProductsComponent implements OnInit {
     private fb: FormBuilder,
     private formBuilder: FormBuilder,
     private jsonService: JsonService
-  ) {}
+  ) {
+    this.addProductForm = this.fb.group({});
+  }
 
   selectedFood = this.published[0].value;
   selectedVisibility = this.visibility[0].value;

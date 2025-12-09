@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { MainRoutingModule } from './main-routing.module';
+import { MAIN_ROUTES } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -11,13 +12,11 @@ import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
-  declarations: [
-    MainComponent, 
-    SidenavComponent
-  ],
   imports: [
     CommonModule,
-    MainRoutingModule,
+    RouterModule.forChild(MAIN_ROUTES),
+    MainComponent,
+    SidenavComponent,
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,

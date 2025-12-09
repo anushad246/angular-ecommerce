@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { CrudRoutingModule} from './crud-routing.module';
+import { CRUD_ROUTES } from './crud-routing.module';
 import { CrudComponent} from './crud.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -25,15 +26,10 @@ import { TestComponentComponent } from './test-component/test-component.componen
 
 
 @NgModule({
-  declarations: [
-    CrudComponent,
-    AddEditComponent,
-    EmpDetailsComponent,
-    TestComponentComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
-    CrudRoutingModule,
+    RouterModule.forChild(CRUD_ROUTES),
     MatFormFieldModule,
     MatCardModule,
     MatButtonModule,
@@ -45,7 +41,11 @@ import { TestComponentComponent } from './test-component/test-component.componen
     MatSelectModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatPaginatorModule 
+    MatPaginatorModule,
+    CrudComponent,
+    AddEditComponent,
+    EmpDetailsComponent,
+    TestComponentComponent
   ]
 })
 export class CrudModule { }

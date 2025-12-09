@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 
-const mainRoutes: Routes = [
+export const MAIN_ROUTES: Routes = [
   {
     path: '',
     component: MainComponent,
@@ -31,9 +30,3 @@ const mainRoutes: Routes = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(mainRoutes)],
-  exports: [RouterModule],
-})
-export class MainRoutingModule {}

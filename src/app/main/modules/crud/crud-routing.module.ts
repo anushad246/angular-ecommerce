@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { CrudComponent } from './crud.component';
 import { EmpDetailsComponent } from './emp-details/emp-details.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
 
-const CrudRoutes: Routes = [
+export const CRUD_ROUTES: Routes = [
   {
     path: '',
     component: CrudComponent,
@@ -16,10 +15,3 @@ const CrudRoutes: Routes = [
     ],
   },
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forChild(CrudRoutes)],
-  exports: [RouterModule]
-})
-export class CrudRoutingModule { }

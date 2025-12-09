@@ -1,15 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { JsonServiceAddEdit } from '../add-edit-server';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
+  styleUrl: './add-edit.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatRadioModule,
+    MatSelectModule,
+  ],
 })
 export class AddEditComponent implements OnInit {
-  userId: string;
+  userId: string = '';
   empForm: FormGroup;
   qualification = [
     'Matric',
@@ -37,11 +62,11 @@ export class AddEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.route.params.subscribe(params => {
-    this.userId = params['id'];
-    console.log('User ID:', this.userId);
-  });
-}
+    this.route.params.subscribe(params => {
+      this.userId = params['id'];
+      console.log('User ID:', this.userId);
+    });
+  }
 
   onForSubmite() {
     if (this.empForm.valid) {
@@ -56,15 +81,3 @@ export class AddEditComponent implements OnInit {
     this.empForm.reset();
   }
 }
-
-
-// userId: string;
-
-// constructor(private route: ActivatedRoute) { }
-
-// ngOnInit(): void {
-//   this.route.params.subscribe(params => {
-//     this.userId = params['id'];
-//     console.log('User ID:', this.userId);
-//   });
-// }

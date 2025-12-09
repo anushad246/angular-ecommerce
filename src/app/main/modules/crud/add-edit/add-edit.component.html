@@ -1,91 +1,93 @@
 <div class="parent-cls place-content-center flex flex-col">
-    <mat-card class="example-card">
-        <mat-card-header class="flex justify-center px-2 border-b-2 border-slate-300">
-            <mat-card-title class="pb-2">Employee Form</mat-card-title>
-        </mat-card-header>
-        <form [formGroup]="empForm" (ngSubmit)="onForSubmite()">
-            <mat-card-content class="mt-5 flex flex-col">
-                <div class="flex flex-row">
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>First Name</div>
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <input type="text" matInput placeholder="Ex. Anusha" formControlName="firstName">
-                        </mat-form-field>
-                    </div>
+  <mat-card class="example-card">
+    <mat-card-header class="flex justify-center px-2 border-b-2 border-slate-300">
+      <mat-card-title class="pb-2">Employee Form</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="empForm" (ngSubmit)="onForSubmite()">
+      <mat-card-content class="mt-5 flex flex-col">
+        <div class="flex flex-row">
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>First Name</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="text" matInput placeholder="Ex. Anusha" formControlName="firstName">
+            </mat-form-field>
+          </div>
 
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Last Name</div>
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="Ex. Dammalapati" formControlName="lastName">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="flex flex-row">
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Email</div>
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <input type="email" matInput placeholder="Ex. Anusha12@gmail.com" formControlName="email">
-                        </mat-form-field>
-                    </div>
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Date of birth</div>
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dob">
-                            <mat-datepicker-toggle matIconSuffix [for]="picker">
-                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="flex flex-row my-3 ml-1">
-                    <div class="gender">Gender : </div>
-                    <mat-radio-group aria-label="Select an option" formControlName="gender">
-                        <mat-radio-button value="male">Male</mat-radio-button>
-                        <mat-radio-button value="female">Female</mat-radio-button>
-                        <mat-radio-button value="other">Others</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="flex flex-row">
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Education</div>
-                        <mat-form-field appearance="outline">
-                            <mat-select name="qualification" class="w-1/2" formControlName="education">
-                                <mat-option *ngFor="let i of qualification" [value]="i">
-                                    {{i}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Company</div>
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="Company" formControlName="company">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="flex flex-row">
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Experience</div>
-                        <mat-form-field class="example-full-width" appearance="outline">
-                            <input type="number" matInput placeholder="Ex. 2" formControlName="experience">
-                        </mat-form-field>
-                    </div>
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Last Name</div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Ex. Dammalapati" formControlName="lastName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Email</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="email" matInput placeholder="Ex. Anusha12@gmail.com" formControlName="email">
+            </mat-form-field>
+          </div>
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Date of birth</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dob">
+              <mat-datepicker-toggle matIconSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex flex-row my-3 ml-1">
+          <div class="gender">Gender : </div>
+          <mat-radio-group aria-label="Select an option" formControlName="gender">
+            <mat-radio-button value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+            <mat-radio-button value="other">Others</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Education</div>
+            <mat-form-field appearance="outline">
+              <mat-select name="qualification" class="w-1/2" formControlName="education">
+                @for (i of qualification; track i) {
+                  <mat-option [value]="i">
+                    {{i}}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Company</div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Company" formControlName="company">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Experience</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="number" matInput placeholder="Ex. 2" formControlName="experience">
+            </mat-form-field>
+          </div>
 
-                    <div class="flex flex-col w-1/2 mx-2">
-                        <div>Package</div>
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="Ex. 12" type="number" formControlName="package">
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions class="flex place-content-end mb-3">
-                <button mat-raised-button color="primary" class="mx-2" type="submit">Add Employee</button>
-                <button mat-raised-button color="warn" class="mx-2" onclick="formReset()">Cancel</button>
-            </mat-card-actions>
-        </form>
-    </mat-card>
+          <div class="flex flex-col w-1/2 mx-2">
+            <div>Package</div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Ex. 12" type="number" formControlName="package">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="flex place-content-end mb-3">
+        <button mat-raised-button color="primary" class="mx-2" type="submit">Add Employee</button>
+        <button mat-raised-button color="warn" class="mx-2" onclick="formReset()">Cancel</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
 
-    <button mat-flat-button color="accent" [routerLink]="['../emp-details']">Back to Employee Details</button>
+  <button mat-flat-button color="accent" [routerLink]="['../emp-details']">Back to Employee Details</button>
 </div>

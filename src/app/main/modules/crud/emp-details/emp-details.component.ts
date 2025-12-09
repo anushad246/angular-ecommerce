@@ -1,14 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { JsonServiceAddEdit } from '../add-edit-server';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-emp-details',
   templateUrl: './emp-details.component.html',
-  styleUrls: ['./emp-details.component.scss'],
- 
+  styleUrl: './emp-details.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule
+  ]
 })
 export class EmpDetailsComponent implements OnInit {
   employeeData: any;
@@ -27,9 +45,11 @@ export class EmpDetailsComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<any>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  constructor(private jsonServiceAddEdit: JsonServiceAddEdit) {}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  constructor(private jsonServiceAddEdit: JsonServiceAddEdit) {
+    this.dataSource = new MatTableDataSource();
+  }
   ngOnInit() {
     this.getemapdata();
   }
@@ -52,9 +72,9 @@ export class EmpDetailsComponent implements OnInit {
     }
   }
 
-  deleteEmpData(id){
+  deleteEmpData(id: any){
     this.jsonServiceAddEdit.getEmpDelete(id).subscribe({
-      next: (res)=>{
+      next: (res) => {
         console.log(res, "delete api response")
         alert("employee deleted")
         this.getemapdata();

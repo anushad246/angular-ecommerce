@@ -1,369 +1,455 @@
 <form class="flex flex-col w-full" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
-    <div class="flex flex-row aligne-items-center w-full">
-        <mat-card class="m-3 p-3 box w-2/3">
-            <!-- Product Title and  Description div-->
-            <div class="flex flex-col">
-                <div class="col mt-4">
-                    <div class="col-3">
-                        <div class="formLabel"><span class="txt-normal">Product Title<span class="color">*</span></span>
-                        </div>
-                    </div>
+  <div class="flex flex-row aligne-items-center w-full">
+    <mat-card class="m-3 p-3 box w-2/3">
+      <!-- Product Title and  Description div-->
+      <div class="flex flex-col">
+        <div class="col mt-4">
+          <div class="col-3">
+            <div class="formLabel"><span class="txt-normal">Product Title<span class="color">*</span></span>
+          </div>
+        </div>
+        <div>
+          <mat-form-field class="name-text Product-Title-field-width" appearance="outline">
+            <input matInput [type]="'text'" required id="productTitle" formControlName="productTitle">
+            @if (addProductForm.get('productTitle')!.invalid && (addProductForm.get('productTitle')!.dirty || addProductForm.get('productTitle')!.touched)) {
+              <mat-error
+                >
+                @if (addProductForm.get('productTitle')!.errors?.['required']) {
+                  <div>Product Title is
+                  required</div>
+                }
+                @if (addProductForm.get('productTitle')!.errors?.['minlength']) {
+                  <div>Product Title must
+                  be at least 2 characters long</div>
+                }
+                @if (addProductForm.get('productTitle')!.errors?.['maxlength']) {
+                  <div>Product Title cannot
+                  exceed 50 characters</div>
+                }
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col mt-5">
+        <div class="col-3">
+          <div class="formLabel"><span class="txt-normal">Description<span class="color">*</span></span>
+        </div>
+      </div>
+      <div class="col-12">
+        <mat-form-field class="full-width custom-textarea" appearance="outline">
+          <textarea class="desc-text" #description matInput [type]="'text'"
+          formControlName="description" id="description" required></textarea>
+          @if (description?.invalid && (description?.dirty || description?.touched)) {
+            <mat-error
+              >
+              @if (description?.errors?.['required']) {
+                <div>Description is
+                required</div>
+              }
+              @if (description?.errors?.['minlength']) {
+                <div>Description must
+                be at least 60 characters long</div>
+              }
+              @if (description?.errors?.['maxlength']) {
+                <div>Description cannot
+                exceed 100 characters</div>
+              }
+            </mat-error>
+          }
+
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manufacturer Name and Manufacturer Brand, stocks div -->
+  <div class="my-3 flex flex-col">
+    <div class="text-lg font-medium border-b-2 pb-2">General Info</div>
+    <div class="flex flex-row justify-between">
+      <div class="col mt-4">
+        <div class="col-3">
+          <div class="formLabel">
+            <span class="txt-normal">Manufacturer Name<span class="color">*</span></span>
+          </div>
+        </div>
+        <div>
+          <mat-form-field class="name-text " appearance="outline">
+            <input #ManufacturerName matInput [type]="'text'" required
+              formControlName="ManufacturerName" id="ManufacturerName">
+              @if (ManufacturerName?.invalid && (ManufacturerName?.dirty || ManufacturerName?.touched)) {
+                <mat-error
+                  >
+                  @if (ManufacturerName?.errors?.['required']) {
                     <div>
-                        <mat-form-field class="name-text Product-Title-field-width" appearance="outline">
-                            <input matInput [type]="'text'" required id="productTitle" formControlName="productTitle">
-                            <mat-error
-                                *ngIf="addProductForm.get('productTitle').invalid && (addProductForm.get('productTitle').dirty || addProductForm.get('productTitle').touched)">
-                                <div *ngIf="addProductForm.get('productTitle').errors['required']">Product Title is
-                                    required</div>
-                                <div *ngIf="addProductForm.get('productTitle').errors['minlength']">Product Title must
-                                    be at least 2 characters long</div>
-                                <div *ngIf="addProductForm.get('productTitle').errors['maxlength']">Product Title cannot
-                                    exceed 50 characters</div>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col mt-5">
-                    <div class="col-3">
-                        <div class="formLabel"><span class="txt-normal">Description<span class="color">*</span></span>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <mat-form-field class="full-width custom-textarea" appearance="outline">
-                            <textarea class="desc-text" #description matInput [type]="'text'"
-                                formControlName="description" id="description" required></textarea>
-                            <mat-error
-                                *ngIf="addProductForm.get('description').invalid && (addProductForm.get('description').dirty || addProductForm.get('description').touched)">
-                                <div *ngIf="addProductForm.get('description').errors['required']">Description is
-                                    required</div>
-                                <div *ngIf="addProductForm.get('description').errors['minlength']">Description must
-                                    be at least 60 characters long</div>
-                                <div *ngIf="addProductForm.get('description').errors['maxlength']">Description cannot
-                                    exceed 100 characters</div>
-                            </mat-error>
-
-                        </mat-form-field>
-                    </div>
-                </div>
+                      ManufacturerName is
+                    required</div>
+                  }
+                  @if (ManufacturerName?.errors?.['minlength']) {
+                    <div>
+                      ManufacturerName must
+                    be at least 60 characters long</div>
+                  }
+                  @if (ManufacturerName?.errors?.['maxlength']) {
+                    <div>
+                      ManufacturerName cannot
+                    exceed 100 characters</div>
+                  }
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col mt-4">
+          <div class="col-3">
+            <div class="formLabel">
+              <span class="txt-normal">Manufacturer Brand<span class="color">*</span></span>
             </div>
-
-            <!-- Manufacturer Name and Manufacturer Brand, stocks div -->
-            <div class="my-3 flex flex-col">
-                <div class="text-lg font-medium border-b-2 pb-2">General Info</div>
-                <div class="flex flex-row justify-between">
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="formLabel">
-                                <span class="txt-normal">Manufacturer Name<span class="color">*</span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text " appearance="outline">
-                                <input #ManufacturerName matInput [type]="'text'" required
-                                    formControlName="ManufacturerName" id="ManufacturerName">
-                                <mat-error
-                                    *ngIf="addProductForm.get('ManufacturerName').invalid && (addProductForm.get('ManufacturerName').dirty || addProductForm.get('ManufacturerName').touched)">
-                                    <div *ngIf="addProductForm.get('ManufacturerName').errors['required']">
-                                        ManufacturerName is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('ManufacturerName').errors['minlength']">
-                                        ManufacturerName must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('ManufacturerName').errors['maxlength']">
-                                        ManufacturerName cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="formLabel">
-                                <span class="txt-normal">Manufacturer Brand<span class="color">*</span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text" appearance="outline">
-                                <input #manufacturerBrand matInput [type]="'text'" required
-                                    formControlName="manufacturerBrand" id="manufacturerBrand">
-                                <mat-error
-                                    *ngIf="addProductForm.get('manufacturerBrand').invalid && (addProductForm.get('manufacturerBrand').dirty || addProductForm.get('manufacturerBrand').touched)">
-                                    <div *ngIf="addProductForm.get('manufacturerBrand').errors['required']">
-                                        manufacturerBrand is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('manufacturerBrand').errors['minlength']">
-                                        manufacturerBrand must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('manufacturerBrand').errors['maxlength']">
-                                        manufacturerBrand cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="formLabel"><span class="txt-normal">Stocks<span class="color">*</span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text" appearance="outline">
-                                <input #stocks matInput [type]="'number'" required formControlName="stocks" id="stocks">
-                                <mat-error
-                                    *ngIf="addProductForm.get('stocks').invalid && (addProductForm.get('stocks').dirty || addProductForm.get('stocks').touched)">
-                                    <div *ngIf="addProductForm.get('stocks').errors['required']">
-                                        stocks is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('stocks').errors['minlength']">
-                                        stocks must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('stocks').errors['maxlength']">
-                                        stocks cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-
-                <!--  Stocks, Price, Discount, Orders-->
-                <div class="flex flex-row justify-between">
-
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="formLabel"><span class="txt-normal">Price<span class="color">*</span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text" appearance="outline">
-                                <input #price matInput [type]="'number'" required formControlName="price" id="price">
-                                <mat-error
-                                    *ngIf="addProductForm.get('price').invalid && (addProductForm.get('price').dirty || addProductForm.get('price').touched)">
-                                    <div *ngIf="addProductForm.get('price').errors['required']">
-                                        price is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('price').errors['minlength']">
-                                        price must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('price').errors['maxlength']">
-                                        price cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="formLabel"><span class="txt-normal">Discount<span class="color">*</span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text" appearance="outline">
-                                <input #discount matInput [type]="'number'" required formControlName="discount"
-                                    id="discount">
-                                <mat-error
-                                    *ngIf="addProductForm.get('discount').invalid && (addProductForm.get('discount').dirty || addProductForm.get('discount').touched)">
-                                    <div *ngIf="addProductForm.get('discount').errors['required']">
-                                        discount is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('discount').errors['minlength']">
-                                        discount must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('discount').errors['maxlength']">
-                                        discount cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="formLabel"><span class="txt-normal">Orders<span class="color">*</span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text" appearance="outline">
-                                <input #orders matInput [type]="'number'" required formControlName="orders" id="orders">
-                                <mat-error
-                                    *ngIf="addProductForm.get('orders').invalid && (addProductForm.get('orders').dirty || addProductForm.get('orders').touched)">
-                                    <div *ngIf="addProductForm.get('orders').errors['required']">
-                                        orders is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('orders').errors['minlength']">
-                                        orders must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('orders').errors['maxlength']">
-                                        orders cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div>
+            <mat-form-field class="name-text" appearance="outline">
+              <input #manufacturerBrand matInput [type]="'text'" required
+                formControlName="manufacturerBrand" id="manufacturerBrand">
+                @if (addProductForm.get('manufacturerBrand')!.invalid && (addProductForm.get('manufacturerBrand')!.dirty || addProductForm.get('manufacturerBrand')!.touched)) {
+                  <mat-error
+                    >
+                    @if (addProductForm.get('manufacturerBrand')!.errors?.['required']) {
+                      <div>
+                        manufacturerBrand is
+                      required</div>
+                    }
+                    @if (manufacturerBrand?.errors?.['minlength']) {
+                      <div>
+                        manufacturerBrand must
+                      be at least 60 characters long</div>
+                    }
+                    @if (manufacturerBrand?.errors?.['maxlength']) {
+                      <div>
+                        manufacturerBrand cannot
+                      exceed 100 characters</div>
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
             </div>
-
-            <div class="my-3 flex flex-col">
-                <div class="text-lg font-medium border-b-2 pb-2">Product Image</div>
+          </div>
+          <div class="col mt-4">
+            <div class="col-3">
+              <div class="formLabel"><span class="txt-normal">Stocks<span class="color">*</span></span>
             </div>
+          </div>
+          <div>
+            <mat-form-field class="name-text" appearance="outline">
+              <input #stocks matInput [type]="'number'" required formControlName="stocks" id="stocks">
+              @if (orders?.invalid && (orders?.dirty || orders?.touched)) {
+                <mat-error
+                  >
+                  @if (orders?.errors?.['required']) {
+                    <div>
+                      stocks is
+                    required</div>
+                  }
+                  @if (stocks?.errors?.['minlength']) {
+                    <div>
+                      stocks must
+                    be at least 60 characters long</div>
+                  }
+                  @if (stocks?.errors?.['maxlength']) {
+                    <div>
+                      stocks cannot
+                    exceed 100 characters</div>
+                  }
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!--  Stocks, Price, Discount, Orders-->
+      <div class="flex flex-row justify-between">
+
+        <div class="col mt-4">
+          <div class="col-3">
+            <div class="formLabel"><span class="txt-normal">Price<span class="color">*</span></span>
+          </div>
+        </div>
+        <div>
+          <mat-form-field class="name-text" appearance="outline">
+            <input #price matInput [type]="'number'" required formControlName="price" id="price">
+            @if (addProductForm.get('price')!.invalid && (addProductForm.get('price')!.dirty || addProductForm.get('price')!.touched)) {
+              <mat-error
+                >
+                @if (addProductForm.get('price')!.errors?.['required']) {
+                  <div>
+                    price is
+                  required</div>
+                }
+                  @if (price?.errors?.['minlength']) {
+                  <div>
+                    price must
+                  be at least 60 characters long</div>
+                }
+                  @if (price?.errors?.['maxlength']) {
+                  <div>
+                    price cannot
+                  exceed 100 characters</div>
+                }
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col mt-4">
+        <div class="col-3">
+          <div class="formLabel"><span class="txt-normal">Discount<span class="color">*</span></span>
+        </div>
+      </div>
+      <div>
+        <mat-form-field class="name-text" appearance="outline">
+          <input #discount matInput [type]="'number'" required formControlName="discount"
+            id="discount">
+            @if (addProductForm.get('discount')!.invalid && (addProductForm.get('discount')!.dirty || addProductForm.get('discount')!.touched)) {
+              <mat-error
+                >
+                @if (addProductForm.get('discount')!.errors?.['required']) {
+                  <div>
+                    discount is
+                  required</div>
+                }
+                  @if (discount?.errors?.['minlength']) {
+                  <div>
+                    discount must
+                  be at least 60 characters long</div>
+                }
+                  @if (discount?.errors?.['maxlength']) {
+                  <div>
+                    discount cannot
+                  exceed 100 characters</div>
+                }
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col mt-4">
+        <div class="col-3">
+          <div class="formLabel"><span class="txt-normal">Orders<span class="color">*</span></span>
+        </div>
+      </div>
+      <div>
+        <mat-form-field class="name-text" appearance="outline">
+          <input #orders matInput [type]="'number'" required formControlName="orders" id="orders">
+          @if (addProductForm.get('orders')!.invalid && (addProductForm.get('orders')!.dirty || addProductForm.get('orders')!.touched)) {
+            <mat-error
+              >
+              @if (addProductForm.get('orders')!.errors?.['required']) {
+                <div>
+                  orders is
+                required</div>
+              }
+              @if (addProductForm.get('orders')!.errors?.['minlength']) {
+                <div>
+                  orders must
+                be at least 60 characters long</div>
+              }
+              @if (addProductForm.get('orders')!.errors?.['maxlength']) {
+                <div>
+                  orders cannot
+                exceed 100 characters</div>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="my-3 flex flex-col">
+  <div class="text-lg font-medium border-b-2 pb-2">Product Image</div>
+</div>
+</mat-card>
+
+<div class="w-1/3 flex flex-col">
+  <mat-card class="m-3 p-3 Publish">
+    <div class="flex flex-col">
+      <div class="text-lg font-medium border-b-2 pb-2">Publish</div>
+      <div class="col mt-4">
+        <div class="col-3">
+          <div class="txt-normal">Status</div>
+        </div>
+        <div>
+          <mat-form-field class="name-text dropdown-width" appearance="outline">
+            <mat-select [(value)]="selectedFood" formControlName="status" id="status" required>
+              @for (option of published; track option) {
+                <mat-option [value]="option.value">{{
+                  option.viewValue
+                }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col mt-4">
+        <div class="col-3">
+          <div class="txt-normal">Visibility</div>
+        </div>
+        <div>
+          <mat-form-field class="name-text dropdown-width" appearance="outline">
+            <mat-select [(value)]="selectedVisibility" formControlName="visibility" id="visibility"
+              required>
+              @for (option of visibility; track option) {
+                <mat-option [value]="option.value">{{
+                  option.viewValue
+                }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="m-3 p-3 Publish">
+    <div class="flex flex-col">
+      <div class="text-lg font-medium border-b-2 pb-2">Publish Schedule</div>
+      <div class="col mt-4">
+        <div class="col-3">
+          <div class="txt-normal">Publish Date & Time</div>
+        </div>
+        <div>
+          <mat-form-field class="name-text dropdown-width" appearance="outline">
+            <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange" required>
+              <input matStartDate placeholder="Start date" formControlName="startDate"
+                id="startdate" required>
+                <input matEndDate placeholder="End date" formControlName="endDate" id="enddate"
+                  required>
+                </mat-date-range-input>
+                <mat-error>
+                  @if (addProductForm.get('dateRange')?.hasError('required') && (addProductForm.get('dateRange.startDate')?.touched || addProductForm.get('dateRange.endDate')?.touched)) {
+                    <div
+                      >
+                      Start date and end date are required.
+                    </div>
+                  }
+                  @if (addProductForm.get('dateRange.startDate')?.hasError('required') && addProductForm.get('dateRange.startDate')?.touched) {
+                    <div
+                      >
+                      Start date is required.
+                    </div>
+                  }
+                  @if (addProductForm.get('dateRange.endDate')?.hasError('required') && addProductForm.get('dateRange.endDate')?.touched) {
+                    <div
+                      >
+                      End date is required.
+                    </div>
+                  }
+                </mat-error>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="m-3 p-3 Publish">
+        <div class="flex flex-col">
+          <div class="text-lg font-medium border-b-2 pb-2">Product Categories</div>
+          <div class="col mt-4">
+            <div class="col-3">
+              <div class="txt-normal">Select product category</div>
+            </div>
+            <div>
+              <mat-form-field class="name-text dropdown-width" appearance="outline">
+                <mat-select [(value)]="selectedProductCategory" formControlName="productCategory"
+                  required id="productCategory">
+                  @for (option of productCategory; track option) {
+                    <mat-option [value]="option.value">{{
+                      option.viewValue
+                    }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+
+      <mat-card class="m-3 p-3 Publish">
+        <div class="flex flex-col">
+          <div class="text-lg font-medium border-b-2 pb-2">Product Tags</div>
+          <div class="col mt-4">
+            <div>
+              <mat-form-field class="name-text dropdown-width" appearance="outline">
+                <mat-chip-grid #chipGrid aria-label="Enter keywords">
+                  @for (keyword of keywords; track keyword) {
+                    <mat-chip-row (removed)="removeKeyword(keyword)">
+                      {{keyword}}
+                      <button matChipRemove aria-label="'remove ' + keyword">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                  }
+                </mat-chip-grid>
+                <input placeholder="New keyword..." [matChipInputFor]="chipGrid"
+                  formControlName="newKeyword" id="newKeyword" (matChipInputTokenEnd)="add($event)"
+                  required />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
         </mat-card>
 
-        <div class="w-1/3 flex flex-col">
-            <mat-card class="m-3 p-3 Publish">
-                <div class="flex flex-col">
-                    <div class="text-lg font-medium border-b-2 pb-2">Publish</div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="txt-normal">Status</div>
-                        </div>
+        <mat-card class="m-3 p-3 Publish">
+          <div class="flex flex-col">
+            <div class="text-lg font-medium border-b-2 pb-2">Product Short Description</div>
+            <div class="col mt-4">
+              <div class="col-3">
+                <div class="txt-normal">Add short description for product</div>
+              </div>
+              <div>
+                <mat-form-field class="full-width" appearance="outline">
+                  <textarea class="desc-text" #shortDescription matInput [type]="'text'"
+                  formControlName="shortDescription" id="shortDescription" required></textarea>
+                  @if (addProductForm.get('shortDescription')!.invalid && (addProductForm.get('shortDescription')!.dirty || addProductForm.get('shortDescription')!.touched)) {
+                    <mat-error
+                      >
+                      @if (addProductForm.get('shortDescription')!.errors?.['required']) {
                         <div>
-                            <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-select [(value)]="selectedFood" formControlName="status" id="status" required>
-                                    <mat-option [value]="option.value" *ngFor="let option of published">{{
-                                        option.viewValue
-                                        }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="txt-normal">Visibility</div>
-                        </div>
+                          orders is
+                        required</div>
+                      }
+                      @if (shortDescription?.errors?.['minlength']) {
                         <div>
-                            <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-select [(value)]="selectedVisibility" formControlName="visibility" id="visibility"
-                                    required>
-                                    <mat-option [value]="option.value" *ngFor="let option of visibility">{{
-                                        option.viewValue
-                                        }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
-
-            <mat-card class="m-3 p-3 Publish">
-                <div class="flex flex-col">
-                    <div class="text-lg font-medium border-b-2 pb-2">Publish Schedule</div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="txt-normal">Publish Date & Time</div>
-                        </div>
+                          orders must
+                        be at least 60 characters long</div>
+                      }
+                      @if (shortDescription?.errors?.['maxlength']) {
                         <div>
-                            <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange" required>
-                                    <input matStartDate placeholder="Start date" formControlName="startDate"
-                                        id="startdate" required>
-                                    <input matEndDate placeholder="End date" formControlName="endDate" id="enddate"
-                                        required>
-                                </mat-date-range-input>
-                                <mat-error>
-                                    <div
-                                        *ngIf="addProductForm.get('dateRange').hasError('required') && (addProductForm.get('dateRange.startDate').touched || addProductForm.get('dateRange.endDate').touched)">
-                                        Start date and end date are required.
-                                    </div>
-                                    <div
-                                        *ngIf="addProductForm.get('dateRange.startDate').hasError('required') && addProductForm.get('dateRange.startDate').touched">
-                                        Start date is required.
-                                    </div>
-                                    <div
-                                        *ngIf="addProductForm.get('dateRange.endDate').hasError('required') && addProductForm.get('dateRange.endDate').touched">
-                                        End date is required.
-                                    </div>
-                                </mat-error>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-date-range-picker #picker></mat-date-range-picker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
+                          orders cannot
+                        exceed 100 characters</div>
+                      }
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-card>
 
-            <mat-card class="m-3 p-3 Publish">
-                <div class="flex flex-col">
-                    <div class="text-lg font-medium border-b-2 pb-2">Product Categories</div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="txt-normal">Select product category</div>
-                        </div>
-                        <div>
-                            <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-select [(value)]="selectedProductCategory" formControlName="productCategory"
-                                    required id="productCategory">
-                                    <mat-option [value]="option.value" *ngFor="let option of productCategory">{{
-                                        option.viewValue
-                                        }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
-
-
-            <mat-card class="m-3 p-3 Publish">
-                <div class="flex flex-col">
-                    <div class="text-lg font-medium border-b-2 pb-2">Product Tags</div>
-                    <div class="col mt-4">
-                        <div>
-                            <mat-form-field class="name-text dropdown-width" appearance="outline">
-                                <mat-chip-grid #chipGrid aria-label="Enter keywords">
-                                    <mat-chip-row *ngFor="let keyword of keywords" (removed)="removeKeyword(keyword)">
-                                        {{keyword}}
-                                        <button matChipRemove aria-label="'remove ' + keyword">
-                                            <mat-icon>cancel</mat-icon>
-                                        </button>
-                                    </mat-chip-row>
-                                </mat-chip-grid>
-                                <input placeholder="New keyword..." [matChipInputFor]="chipGrid"
-                                    formControlName="newKeyword" id="newKeyword" (matChipInputTokenEnd)="add($event)"
-                                    required />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
-
-            <mat-card class="m-3 p-3 Publish">
-                <div class="flex flex-col">
-                    <div class="text-lg font-medium border-b-2 pb-2">Product Short Description</div>
-                    <div class="col mt-4">
-                        <div class="col-3">
-                            <div class="txt-normal">Add short description for product</div>
-                        </div>
-                        <div>
-                            <mat-form-field class="full-width" appearance="outline">
-                                <textarea class="desc-text" #shortDescription matInput [type]="'text'"
-                                    formControlName="shortDescription" id="shortDescription" required></textarea>
-                                <mat-error
-                                    *ngIf="addProductForm.get('shortDescription').invalid && (addProductForm.get('shortDescription').dirty || addProductForm.get('shortDescription').touched)">
-                                    <div *ngIf="addProductForm.get('shortDescription').errors['required']">
-                                        orders is
-                                        required</div>
-                                    <div *ngIf="addProductForm.get('shortDescription').errors['minlength']">
-                                        orders must
-                                        be at least 60 characters long</div>
-                                    <div *ngIf="addProductForm.get('shortDescription').errors['maxlength']">
-                                        orders cannot
-                                        exceed 100 characters</div>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
-
-        </div>
+      </div>
     </div>
 
     <div class="flex justify-end my-10 mr-4">
-        <button class="px-8 mx-7 cancel-button" mat-stroked-button type="button" matStepperPrevious
-            (click)="onBackHome()">
-            Cancel
-        </button>
-        <button class="px-8 btn-color success-button" mat-stroked-button type="submit">
-            Save
-        </button>
+      <button class="px-8 mx-7 cancel-button" mat-stroked-button type="button" matStepperPrevious
+        (click)="onBackHome()">
+        Cancel
+      </button>
+      <button class="px-8 btn-color success-button" mat-stroked-button type="submit">
+        Save
+      </button>
     </div>
-</form>
+  </form>

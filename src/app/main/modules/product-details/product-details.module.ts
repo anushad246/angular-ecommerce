@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { ProductDetailsRoutingModule } from './product-details-routing.module';
+import { PRODUCT_DETAILS_ROUTES } from './product-details-routing.module';
 import { ProductDetailsComponent } from './product-details.component';
 
 
 @NgModule({
-  declarations: [
-    ProductDetailsComponent
-  ],
   imports: [
     CommonModule,
-    ProductDetailsRoutingModule
+    RouterModule.forChild(PRODUCT_DETAILS_ROUTES),
+    ProductDetailsComponent
   ]
 })
 export class ProductDetailsModule { }
