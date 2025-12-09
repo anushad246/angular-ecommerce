@@ -8,9 +8,20 @@
         height: auto;
         margin: 10px;
         box-shadow: none;
+        padding: 10px;
     }
+    
     .gender{
         padding-top: 7px;
+    }
+    
+    mat-form-field {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .flex.flex-row > div {
+        margin: 4px !important;
     }
 
 }

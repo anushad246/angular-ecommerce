@@ -35,12 +35,9 @@ export class EmpDetailsComponent implements OnInit {
     'firstName',
     'lastName',
     'email',
-    'dob',
     'gender',
     'education',
     'company',
-    'experience',
-    'package',
     "action"
   ];
   dataSource: MatTableDataSource<any>;

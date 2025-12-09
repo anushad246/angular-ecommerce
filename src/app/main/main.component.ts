@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
@@ -25,6 +25,8 @@ export class MainComponent implements OnInit {
   @ViewChild('drawer') drawer!: MatDrawer;
   menu: any;
 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
   toggleDrawer() {
     this.drawer.toggle();
     this.showFiller = !this.showFiller;
@@ -33,6 +35,11 @@ export class MainComponent implements OnInit {
   selectedMenuOption(selectedOpt: any) {
     this.menu = selectedOpt;
     localStorage.setItem('selectedMenu', JSON.stringify(this.menu));
+    // Navigate to the selected menu option using relative route
+    if (selectedOpt && selectedOpt.url) {
+      const urlPath = selectedOpt.url.replace('./', '');
+      this.router.navigate([urlPath], { relativeTo: this.activatedRoute });
+    }
   }
 
   ngOnInit(): void {
