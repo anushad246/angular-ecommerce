@@ -30,4 +30,4 @@ bootstrapApplication(AppComponent, {
     console.log(`✓ Logging Level: ${environment.logging.level}`);
     console.log('========================================');
   })
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
