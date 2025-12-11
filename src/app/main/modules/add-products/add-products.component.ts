@@ -17,7 +17,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { JsonService } from 'src/app/servers/server';
+import { JsonService } from 'src/app/services/json.service';
 
 @Component({
   selector: 'app-add-products',

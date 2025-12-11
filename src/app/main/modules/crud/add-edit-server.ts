@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { HttpService } from '../../../services/http.service';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -36,19 +37,34 @@ export class JsonServiceAddEdit {
     },
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private httpService: HttpService) {}
 
-  AddEdit(data: any) {
+  /**
+   * Add or edit an employee
+   */
+  AddEdit(data: any): Observable<any> {
+    // You can use either local storage or API
+    // For API: return this.httpService.post('/employees', data);
     const newEmployee = { ...data, id: this.generateId() };
     this.employeesData.push(newEmployee);
     return of(newEmployee);
   }
 
-  getEmpData() {
+  /**
+   * Get all employees
+   */
+  getEmpData(): Observable<any[]> {
+    // You can use either local storage or API
+    // For API: return this.httpService.get('/employees');
     return of(this.employeesData);
   }
 
-  getEmpDelete(id: number) {
+  /**
+   * Delete an employee
+   */
+  getEmpDelete(id: number | string): Observable<any> {
+    // You can use either local storage or API
+    // For API: return this.httpService.delete(`/employees/${id}`);
     const index = this.employeesData.findIndex(
       (emp) => emp.id === id.toString()
     );
@@ -56,6 +72,19 @@ export class JsonServiceAddEdit {
       this.employeesData.splice(index, 1);
     }
     return of({ success: true });
+  }
+
+  /**
+   * Update an employee
+   */
+  updateEmployee(id: string, data: any): Observable<any> {
+    // You can use either local storage or API
+    // For API: return this.httpService.put(`/employees/${id}`, data);
+    const index = this.employeesData.findIndex(emp => emp.id === id);
+    if (index !== -1) {
+      this.employeesData[index] = { ...this.employeesData[index], ...data };
+    }
+    return of(this.employeesData[index]);
   }
 
   private generateId(): string {

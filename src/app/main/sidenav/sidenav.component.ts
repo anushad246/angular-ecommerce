@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MENU_CONFIG } from './menu-config';
 
@@ -9,7 +8,7 @@ import { MENU_CONFIG } from './menu-config';
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatButtonModule],
+  imports: [CommonModule, MatButtonModule],
 })
 export class SidenavComponent implements OnInit {
 

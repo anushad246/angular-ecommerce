@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 import { CRUD_ROUTES } from './crud-routing.module';
 import { CrudComponent} from './crud.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
@@ -17,11 +16,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmpDetailsComponent } from './emp-details/emp-details.component';
 import {MatTableModule} from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TestComponentComponent } from './test-component/test-component.component';
-
-
 
 
 
