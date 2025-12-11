@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ADD_PRODUCTS_ROUTES } from './add-products-routing.module';
 import { AddProductsComponent } from './add-products.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -12,4 +11,5 @@ import { AddProductsComponent } from './add-products.component';
     AddProductsComponent,
   ],
 })
+
 export class AddProductsModule {}

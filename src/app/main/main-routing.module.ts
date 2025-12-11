@@ -5,7 +5,6 @@ export const MAIN_ROUTES: Routes = [
   {
     path: '',
     component: MainComponent,
-
     children: [
       { path: '', redirectTo: 'product-details', pathMatch: 'full' },
       {

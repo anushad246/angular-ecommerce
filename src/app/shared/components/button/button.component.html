@@ -1,0 +1,4 @@
+<button [type]="type" [disabled]="disabled || isLoading" [ngClass]="'btn btn-' + type">
+  <span *ngIf="!isLoading">{{ label }}</span>
+  <span *ngIf="isLoading" class="loading">Loading...</span>
+</button>
