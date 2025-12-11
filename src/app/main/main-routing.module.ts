@@ -11,21 +11,21 @@ export const MAIN_ROUTES: Routes = [
       {
         path: 'add-products',
         loadChildren: () =>
-          import('./modules/add-products/add-products.module').then(
+          import('./features/add-products/add-products.module').then(
             (m) => m.AddProductsModule
           ),
       },
       {
         path: 'product-details',
         loadChildren: () =>
-          import('./modules/product-details/product-details.module').then(
+          import('./features/product-details/product-details.module').then(
             (m) => m.ProductDetailsModule
           ),
       },
       {
         path: 'basic-crud',
         loadChildren: () =>
-          import('./modules/crud/crud.module').then((m) => m.CrudModule),
+          import('./features/crud/crud.module').then((m) => m.CrudModule),
       },
     ],
   },
