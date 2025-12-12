@@ -1,0 +1,84 @@
+
+<div class="details-container">
+
+  <div *ngIf="isLoading" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+
+  <ng-container *ngIf="!isLoading && employee">
+    <mat-card class="details-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{ employee.firstName }} {{ employee.lastName }}
+        </mat-card-title>
+        <mat-card-subtitle>Employee ID: {{ employee.id }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="details-grid">
+          <div class="section">
+            <h3>Personal Information</h3>
+            <div class="details-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ employee.email }}</span>
+            </div>
+            <div class="details-item">
+              <span class="label">Date of Birth:</span>
+              <span class="value">{{ employee.dob | date: 'mediumDate' }}</span>
+            </div>
+            <div class="details-item">
+              <span class="label">Gender:</span>
+              <span class="value">{{ employee.gender }}</span>
+            </div>
+          </div>
+
+          <!-- Professional Information Section -->
+          <div class="section">
+            <h3>Professional Information</h3>
+            <div class="details-item">
+              <span class="label">Education:</span>
+              <span class="value">{{ employee.education }}</span>
+            </div>
+            <div class="details-item">
+              <span class="label">Company:</span>
+              <span class="value">{{ employee.company }}</span>
+            </div>
+            <div class="details-item">
+              <span class="label">Experience:</span>
+              <span class="value">{{ employee.experience }} years</span>
+            </div>
+            <div class="details-item">
+              <span class="label">Annual Package:</span>
+              <span class="value">${{ employee.package | number }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <!-- Action Buttons -->
+      <mat-card-actions align="end">
+        <button mat-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Back to List
+        </button>
+        <button mat-button color="accent" (click)="editEmployee()">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="deleteEmployee()">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <!-- No Data State -->
+  <mat-card *ngIf="!isLoading && !employee" class="no-data">
+    <p>Employee not found</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      Go Back to List
+    </button>
+  </mat-card>
+</div>

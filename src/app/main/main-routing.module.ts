@@ -26,6 +26,11 @@ export const MAIN_ROUTES: Routes = [
         loadChildren: () =>
           import('./features/crud/crud.module').then((m) => m.CrudModule),
       },
+      {
+        path: 'employees',
+        loadChildren: () =>
+          import('./features/employees/employees.module').then((m) => m.EmployeesModule),
+      },
     ],
   },
 ];

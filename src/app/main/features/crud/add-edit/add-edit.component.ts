@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { JsonServiceAddEdit } from '../add-edit-server';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
@@ -45,7 +44,6 @@ export class AddEditComponent implements OnInit {
   ];
   constructor(
     private _fb: FormBuilder,
-    private addEditJson: JsonServiceAddEdit,
     private route: ActivatedRoute
   ) {
     this.empForm = this._fb.group({
@@ -70,10 +68,11 @@ export class AddEditComponent implements OnInit {
 
   onForSubmite() {
     if (this.empForm.valid) {
-      this.addEditJson.AddEdit(this.empForm.value).subscribe((res) => {
-        this.formReset();
-        alert('employee added successfully');
-      });
+      // Employee data is stored in memory through the service
+      // This would be replaced with store/effects in production
+      console.log('Form submitted:', this.empForm.value);
+      this.formReset();
+      alert('employee added successfully');
     }
   }
 

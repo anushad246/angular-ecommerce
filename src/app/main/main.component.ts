@@ -35,7 +35,6 @@ export class MainComponent implements OnInit {
   selectedMenuOption(selectedOpt: any) {
     this.menu = selectedOpt;
     localStorage.setItem('selectedMenu', JSON.stringify(this.menu));
-    // Navigate to the selected menu option using relative route
     if (selectedOpt && selectedOpt.url) {
       const urlPath = selectedOpt.url.replace('./', '');
       this.router.navigate([urlPath], { relativeTo: this.activatedRoute });

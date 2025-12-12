@@ -1,0 +1,20 @@
+<div class="employees-container">
+  <mat-card class="employees-toolbar">
+    <div class="toolbar-actions">
+      <h2>Employee Management</h2>
+      <div class="action-buttons">
+        <button mat-raised-button color="primary" routerLink="list">
+          <mat-icon>list</mat-icon>
+          Employee List
+        </button>
+        <button mat-raised-button color="accent" routerLink="form">
+          <mat-icon>add</mat-icon>
+          Add Employee
+        </button>
+      </div>
+    </div>
+  </mat-card>
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>
