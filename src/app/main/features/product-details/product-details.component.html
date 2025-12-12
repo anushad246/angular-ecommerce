@@ -1,1 +1,65 @@
-<p>Checking product-details </p>
+<div class="product-details-container">
+  <!-- Loading State -->
+  <div *ngIf="loading$ | async as loading" class="loading-state">
+    <p *ngIf="loading">Loading product details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error$ | async as error" class="error-state">
+    <p *ngIf="error" class="error-message">⚠️ Error: {{ error }}</p>
+  </div>
+
+  <!-- Products List Section -->
+  <div class="products-list-section">
+    <h2>Products from Store</h2>
+    <div class="products-list">
+      <div *ngFor="let prod of products$ | async" class="product-card">
+        <h3>{{ prod.name }}</h3>
+        <p class="description">{{ prod.description }}</p>
+        <p class="price">💰 ${{ prod.price }}</p>
+        <p class="category">📦 {{ prod.category }}</p>
+        <p class="stock" [class.in-stock]="prod.inStock" [class.out-of-stock]="!prod.inStock">
+          {{ prod.inStock ? '✓ In Stock' : '✗ Out of Stock' }}
+        </p>
+        <div class="rating" *ngIf="prod.rating">
+          ⭐ {{ prod.rating }} ({{ prod.reviews }} reviews)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Data Display -->
+  <div *ngIf="(product$ | async) as product" class="product-content">
+    <h1>{{ product.productTitle }}</h1>
+    
+    <div class="product-info">
+      <p class="price">💰 Price: ${{ product.price }}</p>
+      <p class="brand">🏷️ Brand: {{ product.manufacturerBrand }}</p>
+      <p class="category">📦 Category: {{ product.category }}</p>
+      <p class="manufacturer">🏭 Manufacturer: {{ product.ManufacturerName }}</p>
+    </div>
+
+    <div class="product-description">
+      <h3>Description</h3>
+      <p>{{ product.description }}</p>
+      <p *ngIf="product.shortDescription" class="short-desc">{{ product.shortDescription }}</p>
+    </div>
+
+    <div class="product-stock">
+      <p *ngIf="product.inStock" class="in-stock">✓ In Stock ({{ product.stocks }} available)</p>
+      <p *ngIf="!product.inStock" class="out-of-stock">✗ Out of Stock</p>
+    </div>
+
+    <div class="product-meta">
+      <p>📊 Orders: {{ product.orders }}</p>
+      <p>🎁 Discount: {{ product.discount }}%</p>
+      <p>👁️ Visibility: {{ product.visibility }}</p>
+      <p>📝 Status: {{ product.status }}</p>
+    </div>
+  </div>
+
+  <!-- No Data State -->
+  <div *ngIf="!(loading$ | async) && !(product$ | async)" class="no-data-state">
+    <p>No product selected. Please select a product to view details.</p>
+  </div>
+</div>

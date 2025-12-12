@@ -25,7 +25,6 @@ import { DetailsComponent } from './details/details.component';
     EmployeesComponent,
     ListComponent,
     FormComponent,
-    DetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +40,7 @@ import { DetailsComponent } from './details/details.component';
     MatFormFieldModule,
     MatCardModule,
     MatSelectModule,
+    DetailsComponent,
   ],
 })
 export class EmployeesModule {}

@@ -1,9 +1,45 @@
 import { createReducer, on } from '@ngrx/store';
-import { ProductsState } from './product.model';
+import { ProductsState, Product } from './product.model';
 import * as ProductActions from './product.actions';
 
+const sampleProducts: Product[] = [
+  {
+    id: '1',
+    name: 'Wireless Headphones',
+    description: 'High-quality wireless headphones with noise cancellation',
+    price: 79.99,
+    image: 'https://via.placeholder.com/300x300?text=Headphones',
+    category: 'electronics',
+    inStock: true,
+    rating: 4.5,
+    reviews: 128,
+  },
+  {
+    id: '2',
+    name: 'Smart Watch',
+    description: 'Feature-rich smartwatch with health tracking capabilities',
+    price: 199.99,
+    image: 'https://via.placeholder.com/300x300?text=SmartWatch',
+    category: 'watches',
+    inStock: true,
+    rating: 4.8,
+    reviews: 256,
+  },
+  {
+    id: '3',
+    name: 'USB-C Cable',
+    description: 'Durable 2-meter USB-C charging and data transfer cable',
+    price: 12.99,
+    image: 'https://via.placeholder.com/300x300?text=Cable',
+    category: 'electronics',
+    inStock: true,
+    rating: 4.2,
+    reviews: 512,
+  },
+];
+
 export const initialProductsState: ProductsState = {
-  items: [],
+  items: sampleProducts,
   loading: false,
   error: null,
   selectedProduct: null,
