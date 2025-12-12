@@ -9,9 +9,8 @@ export interface Notification {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class NotificationService {
   private notifications$ = new BehaviorSubject<Notification[]>([]);
 
@@ -19,12 +18,16 @@ export class NotificationService {
     return this.notifications$.asObservable();
   }
 
-  show(message: string, type: 'success' | 'error' | 'warning' | 'info' = 'info', duration: number = 3000) {
+  show(
+    message: string,
+    type: 'success' | 'error' | 'warning' | 'info' = 'info',
+    duration: number = 3000
+  ) {
     const notification: Notification = {
       id: Date.now().toString(),
       message,
       type,
-      duration
+      duration,
     };
 
     const current = this.notifications$.value;
@@ -37,7 +40,7 @@ export class NotificationService {
 
   remove(id: string) {
     const current = this.notifications$.value;
-    this.notifications$.next(current.filter(n => n.id !== id));
+    this.notifications$.next(current.filter((n) => n.id !== id));
   }
 
   clear() {

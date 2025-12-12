@@ -7,6 +7,12 @@ import { AppComponent } from './app/app.component';
 import { APP_ROUTES } from './app/app-routing.module';
 import { HttpConfigInterceptor } from './app/services/http.interceptor';
 import { environment } from './environments/environment';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { productReducer } from './app/store/products/product.reducer';
+import { authReducer } from './app/store/auth/auth.reducer';
+import { cartReducer } from './app/store/cart/cart.reducer';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -19,6 +25,17 @@ bootstrapApplication(AppComponent, {
       useClass: HttpConfigInterceptor,
       multi: true,
     },
+    // NgRx Store Configuration
+    provideStore({
+      products: productReducer,
+      auth: authReducer,
+      cart: cartReducer,
+    }),
+    provideEffects([]),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
 })
   .then((appRef) => {
