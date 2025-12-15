@@ -23,12 +23,11 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     const clonedRequest = request.clone({
       setHeaders: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        // Add authorization header if token exists
+        Accept: 'application/json',
         ...(this.getAuthToken() && {
-          'Authorization': `Bearer ${this.getAuthToken()}`
-        })
-      }
+          Authorization: `Bearer ${this.getAuthToken()}`,
+        }),
+      },
     });
 
     if (environment.logging.enabled) {
@@ -38,26 +37,18 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return next.handle(clonedRequest).pipe(
       tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse && environment.logging.enabled) {
-          console.log('HTTP Response:', event);
         }
       }),
       catchError((error: HttpErrorResponse) => {
-        console.error('HTTP Error:', error);
-        
-        // Handle different error types
+
+
         let errorMessage = 'An error occurred';
-        
         if (error.error instanceof ErrorEvent) {
-          // Client-side error
           errorMessage = `Error: ${error.error.message}`;
         } else {
-          // Server-side error
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        
-        if (environment.logging.enabled) {
-          console.error(errorMessage);
-        }
+
         return throwError(() => new Error(errorMessage));
       })
     );
@@ -65,6 +56,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
   // Helper method to get auth token from localStorage
   private getAuthToken(): string | null {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem('accessToken');
   }
 }

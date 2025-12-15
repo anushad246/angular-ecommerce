@@ -4,9 +4,8 @@ export const environment = {
   production: false,
   apiUrl: 'https://staging-api.yourdomain.com',
   apiEndpoints: {
-    products: '/products',
-    employees: '/employees',
-    auth: '/auth'
+    auth: '/auth',
+    products: '/api/products',
   },
   cache: {
     enabled: true,

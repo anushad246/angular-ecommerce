@@ -1,16 +1,19 @@
 export interface User {
-  id: string;
+  id: number;
+  username: string;
   email: string;
-  name: string;
-  role: 'admin' | 'user';
-  avatar?: string;
-  createdAt?: Date;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  image: string;
 }
 
 export interface AuthState {
   user: User | null;
-  token: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
 }
+

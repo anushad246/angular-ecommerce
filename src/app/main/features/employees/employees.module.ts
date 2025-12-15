@@ -21,11 +21,7 @@ import { FormComponent } from './form/form.component';
 import { DetailsComponent } from './details/details.component';
 
 @NgModule({
-  declarations: [
-    EmployeesComponent,
-    ListComponent,
-    FormComponent,
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(EMPLOYEES_ROUTES),
@@ -40,6 +36,9 @@ import { DetailsComponent } from './details/details.component';
     MatFormFieldModule,
     MatCardModule,
     MatSelectModule,
+    EmployeesComponent,
+    ListComponent,
+    FormComponent,
     DetailsComponent,
   ],
 })

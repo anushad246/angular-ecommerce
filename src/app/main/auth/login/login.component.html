@@ -1,3 +1,72 @@
 <div class="login-container">
-  <h1>Login</h1>
+  <div class="login-card">
+    <h1>Login</h1>
+    <p class="subtitle">Sign in with your credentials</p>
+
+    <!-- Error Alert -->
+    <div *ngIf="error$ | async as error" class="error-alert">
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="form-input"
+          placeholder="e.g., emilys"
+          [class.error]="getControl('username')?.touched && getControl('username')?.invalid"
+        />
+        <span *ngIf="getControl('username')?.touched && getControl('username')?.invalid" class="error-text">
+          {{ getErrorMessage('username') }}
+        </span>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-input"
+          placeholder="e.g., emilyspass"
+          [class.error]="getControl('password')?.touched && getControl('password')?.invalid"
+        />
+        <span *ngIf="getControl('password')?.touched && getControl('password')?.invalid" class="error-text">
+          {{ getErrorMessage('password') }}
+        </span>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid || (loading$ | async)"
+      >
+        <span *ngIf="!(loading$ | async)">Sign In</span>
+        <span *ngIf="loading$ | async">Loading...</span>
+      </button>
+    </form>
+
+    <!-- User Info (after login) -->
+    <div *ngIf="isUserLoggedIn()" class="user-info">
+      <h3>Welcome!</h3>
+      <p><strong>Username:</strong> {{ user?.username }}</p>
+      <p><strong>Email:</strong> {{ user?.email }}</p>
+      <p><strong>Name:</strong> {{ user?.firstName }} {{ user?.lastName }}</p>
+    </div>
+
+    <!-- Demo Credentials Info -->
+    <div class="demo-info">
+      <p><strong>Demo Credentials:</strong></p>
+      <p>Username: <code>emilys</code></p>
+      <p>Password: <code>emilyspass</code></p>
+      <p><small>Using dummyjson.com API</small></p>
+    </div>
+  </div>
 </div>

@@ -36,9 +36,7 @@ export class HttpService {
     return this.http.put<T>(url, body, options);
   }
 
-  /**
-   * Perform PATCH request
-   */
+
   patch<T>(endpoint: string, body: any, options?: HttpOptions): Observable<T> {
     const url = `${this.baseUrl}${endpoint}`;
     return this.http.patch<T>(url, body, options);

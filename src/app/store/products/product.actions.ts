@@ -2,9 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Product } from './product.model';
 
 // Load Products
-export const loadProducts = createAction(
-  '[Product Page] Load Products'
-);
+export const loadProducts = createAction('[Product Page] Load Products');
 
 export const loadProductsSuccess = createAction(
   '[Product API] Load Products Success',

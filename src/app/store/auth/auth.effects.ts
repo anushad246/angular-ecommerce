@@ -1,164 +1,231 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
-import { HttpService } from '../../services/http.service';
+import { of, interval } from 'rxjs';
+import {
+  map,
+  mergeMap,
+  catchError,
+  switchMap,
+  tap,
+  filter,
+  exhaustMap,
+} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import URLConfig from '../url-config';
 import * as AuthActions from '../auth/auth.actions';
-import { User } from '../auth/auth.model';
+import { User } from './auth.model';
 
-/**
- * Auth Effects
- * Handle side effects like API calls for authentication operations
- * NOTE: This is a template - uncomment and integrate with your HTTP service
- */
 @Injectable()
 export class AuthEffects {
-  // Login effect
+  private readonly TOKEN_REFRESH_THRESHOLD = 5 * 60 * 1000;
+  private lastUserLoadTime = 0;
+  private readonly USER_LOAD_CACHE_DURATION = 60000; 
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
-      mergeMap(({ email, password }) =>
-        // TODO: Replace with your actual API endpoint
-        this.httpService
-          .post<{ user: User; token: string }>('/api/auth/login', {
-            email,
+      mergeMap(({ username, password }) => {
+        const apiUrl = environment.apiUrl + URLConfig.auth.uri;
+        const loginUrl = `${apiUrl}${URLConfig.auth.context.login}`;
+
+        return this.http
+          .post<any>(loginUrl, {
+            username,
             password,
+            expiresInMins: 30,
           })
           .pipe(
-            map(({ user, token }) => {
-              // Store token in localStorage
-              localStorage.setItem('token', token);
-              return AuthActions.loginSuccess({ user, token });
+            tap(({ accessToken, refreshToken, ...user }) => {
+              localStorage.setItem('accessToken', accessToken);
+              localStorage.setItem('refreshToken', refreshToken);
+
+              const expirationTime = new Date().getTime() + 30 * 60 * 1000;
+              localStorage.setItem(
+                'tokenExpiration',
+                expirationTime.toString()
+              );
             }),
-            catchError((error) =>
-              of(
+            map(({ accessToken, refreshToken, ...user }) => {
+              return AuthActions.loginSuccess({
+                user: user as any,
+                accessToken,
+                refreshToken,
+              });
+            }),
+            catchError((error) => {
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('refreshToken');
+              return of(
                 AuthActions.loginFailure({
-                  error: error.message || 'Login failed',
+                  error: error.error?.message || 'Login failed',
                 })
-              )
-            )
-          )
-      )
+              );
+            })
+          );
+      })
     )
   );
 
-  // Register effect
-  register$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.register),
-      mergeMap(({ email, password, name }) =>
-        // TODO: Replace with your actual API endpoint
-        this.httpService
-          .post<{ user: User; token: string }>('/api/auth/register', {
-            email,
-            password,
-            name,
-          })
-          .pipe(
-            map(({ user, token }) => {
-              localStorage.setItem('token', token);
-              return AuthActions.registerSuccess({ user, token });
-            }),
-            catchError((error) =>
-              of(
-                AuthActions.registerFailure({
-                  error: error.message || 'Registration failed',
-                })
-              )
-            )
-          )
-      )
-    )
-  );
-
-  // Logout effect
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.logout),
+      tap(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('tokenExpiration');
+      }),
       mergeMap(() => {
-        // Clear token from localStorage
-        localStorage.removeItem('token');
-        // TODO: Call logout API endpoint if needed
         return of(AuthActions.logoutSuccess());
       })
     )
   );
 
-  // Load user effect (check if token exists and load user)
   loadUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadUser),
       switchMap(() => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          return of(
-            AuthActions.loadUserFailure({ error: 'No token found' })
-          );
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          return of(AuthActions.loadUserFailure({ error: 'No token found' }));
         }
 
-        // TODO: Replace with your actual API endpoint
-        return this.httpService.get<User>('/api/auth/me').pipe(
+        if (this.isTokenExpired()) {
+          return of(AuthActions.refreshToken());
+        }
+
+        // Prevent duplicate API calls within 60 seconds
+        const now = new Date().getTime();
+        if (now - this.lastUserLoadTime < this.USER_LOAD_CACHE_DURATION) {
+          return of();
+        }
+
+        this.lastUserLoadTime = now;
+
+        const apiUrl = environment.apiUrl + URLConfig.auth.uri;
+        const profileUrl = `${apiUrl}${URLConfig.auth.context.profile}`;
+
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${accessToken}`
+        });
+
+        return this.http.get<User>(profileUrl, { headers }).pipe(
+
           map((user) => AuthActions.loadUserSuccess({ user })),
-          catchError((error) =>
-            of(
+          catchError((error) => {
+
+
+            if (error.status === 401) {
+              return of(AuthActions.refreshToken());
+            }
+
+            return of(
               AuthActions.loadUserFailure({
-                error: error.message || 'Failed to load user',
+                error: error.error?.message || 'Failed to load user',
               })
-            )
-          )
+            );
+          })
         );
       })
     )
   );
 
-  // Update profile effect
-  updateProfile$ = createEffect(() =>
+  refreshToken$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.updateProfile),
-      mergeMap(({ user }) =>
-        // TODO: Replace with your actual API endpoint
-        this.httpService.put<User>('/api/auth/profile', user).pipe(
-          map((updatedUser) =>
-            AuthActions.updateProfileSuccess({ user: updatedUser })
-          ),
-          catchError((error) =>
-            of(
-              AuthActions.updateProfileFailure({
-                error: error.message || 'Failed to update profile',
+      ofType(AuthActions.refreshToken),
+      switchMap(() => {
+        const refreshToken = localStorage.getItem('refreshToken');
+
+        if (!refreshToken) {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('tokenExpiration');
+          return of(
+            AuthActions.refreshTokenFailure({ error: 'No refresh token' })
+          );
+        }
+
+        const apiUrl = environment.apiUrl + URLConfig.auth.uri;
+        const refreshUrl = `${apiUrl}${URLConfig.auth.context.tokenRefresh}`;
+
+        return this.http
+          .post<any>(refreshUrl, {
+            refreshToken,
+            expiresInMins: 30,
+          })
+          .pipe(
+            tap(({ accessToken, refreshToken: newRefreshToken }) => {
+              localStorage.setItem('accessToken', accessToken);
+              localStorage.setItem('refreshToken', newRefreshToken);
+
+              const expirationTime = new Date().getTime() + 30 * 60 * 1000;
+              localStorage.setItem(
+                'tokenExpiration',
+                expirationTime.toString()
+              );
+
+
+            }),
+            map(({ accessToken, refreshToken: newRefreshToken }) =>
+              AuthActions.refreshTokenSuccess({
+                accessToken,
+                refreshToken: newRefreshToken,
               })
-            )
-          )
-        )
-      )
+            ),
+            catchError((error) => {
+
+              // Clear all auth data on refresh failure
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('refreshToken');
+              localStorage.removeItem('tokenExpiration');
+
+              return of(
+                AuthActions.refreshTokenFailure({
+                  error: error.error?.message || 'Token refresh failed',
+                })
+              );
+            })
+          );
+      })
     )
   );
 
-  // Reset password effect
-  resetPassword$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.resetPassword),
-      mergeMap(({ email }) =>
-        // TODO: Replace with your actual API endpoint
-        this.httpService
-          .post<void>('/api/auth/reset-password', { email })
-          .pipe(
-            map(() => AuthActions.resetPasswordSuccess()),
-            catchError((error) =>
-              of(
-                AuthActions.resetPasswordFailure({
-                  error: error.message || 'Failed to reset password',
-                })
-              )
-            )
-          )
-      )
+  autoRefreshToken$ = createEffect(() =>
+    interval(30000).pipe(
+      filter(() => !!localStorage.getItem('accessToken')),
+      filter(() => !this.isTokenExpired() && this.shouldRefreshToken()),
+      exhaustMap(() => of(AuthActions.refreshToken()))
     )
   );
 
   constructor(
     private actions$: Actions,
     private store: Store,
-    private httpService: HttpService
+    private http: HttpClient
   ) {}
+
+  private isTokenExpired(): boolean {
+    const expirationTime = localStorage.getItem('tokenExpiration');
+
+    if (!expirationTime) {
+      return true;
+    }
+
+    const currentTime = new Date().getTime();
+    return currentTime > parseInt(expirationTime, 10);
+  }
+
+  private shouldRefreshToken(): boolean {
+    const expirationTime = localStorage.getItem('tokenExpiration');
+
+    if (!expirationTime) {
+      return false;
+    }
+
+    const currentTime = new Date().getTime();
+    const timeUntilExpiration = parseInt(expirationTime, 10) - currentTime;
+
+    return timeUntilExpiration <= this.TOKEN_REFRESH_THRESHOLD;
+  }
 }

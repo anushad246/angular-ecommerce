@@ -4,9 +4,8 @@ export const environment = {
   production: true,
   apiUrl: 'https://api.yourdomain.com',
   apiEndpoints: {
-    products: '/products',
-    employees: '/employees',
-    auth: '/auth'
+    auth: '/auth',
+    products: '/api/products',
   },
   cache: {
     enabled: true,

@@ -4,8 +4,9 @@ import * as AuthActions from './auth.actions';
 
 export const initialAuthState: AuthState = {
   user: null,
-  token: localStorage.getItem('token'),
-  isAuthenticated: !!localStorage.getItem('token'),
+  accessToken: localStorage.getItem('accessToken'),
+  refreshToken: localStorage.getItem('refreshToken'),
+  isAuthenticated: !!localStorage.getItem('accessToken'),
   loading: false,
   error: null,
 };
@@ -20,10 +21,11 @@ export const authReducer = createReducer(
     error: null,
   })),
 
-  on(AuthActions.loginSuccess, (state, { user, token }) => ({
+  on(AuthActions.loginSuccess, (state, { user, accessToken, refreshToken }) => ({
     ...state,
     user,
-    token,
+    accessToken,
+    refreshToken,
     isAuthenticated: true,
     loading: false,
     error: null,
@@ -36,34 +38,12 @@ export const authReducer = createReducer(
     isAuthenticated: false,
   })),
 
-  // Register
-  on(AuthActions.register, (state) => ({
-    ...state,
-    loading: true,
-    error: null,
-  })),
-
-  on(AuthActions.registerSuccess, (state, { user, token }) => ({
-    ...state,
-    user,
-    token,
-    isAuthenticated: true,
-    loading: false,
-    error: null,
-  })),
-
-  on(AuthActions.registerFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-    isAuthenticated: false,
-  })),
-
   // Logout
   on(AuthActions.logoutSuccess, (state) => ({
     ...state,
     user: null,
-    token: null,
+    accessToken: null,
+    refreshToken: null,
     isAuthenticated: false,
     loading: false,
     error: null,
@@ -91,42 +71,26 @@ export const authReducer = createReducer(
     isAuthenticated: false,
   })),
 
-  // Update Profile
-  on(AuthActions.updateProfile, (state) => ({
+  // Refresh Token
+  on(AuthActions.refreshToken, (state) => ({
     ...state,
     loading: true,
     error: null,
   })),
 
-  on(AuthActions.updateProfileSuccess, (state, { user }) => ({
+  on(AuthActions.refreshTokenSuccess, (state, { accessToken, refreshToken }) => ({
     ...state,
-    user,
+    accessToken,
+    refreshToken,
     loading: false,
     error: null,
   })),
 
-  on(AuthActions.updateProfileFailure, (state, { error }) => ({
+  on(AuthActions.refreshTokenFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
-  })),
-
-  // Reset Password
-  on(AuthActions.resetPassword, (state) => ({
-    ...state,
-    loading: true,
-    error: null,
-  })),
-
-  on(AuthActions.resetPasswordSuccess, (state) => ({
-    ...state,
-    loading: false,
-    error: null,
-  })),
-
-  on(AuthActions.resetPasswordFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
+    isAuthenticated: false,
   }))
 );
+

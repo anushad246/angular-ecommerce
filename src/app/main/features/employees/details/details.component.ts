@@ -56,7 +56,6 @@ export class DetailsComponent implements OnInit {
 
   deleteEmployee(): void {
     if (confirm('Are you sure you want to delete this employee?')) {
-      console.log('Deleting employee:', this.employeeId);
       this.router.navigate(['..', 'list'], { relativeTo: this.route });
     }
   }

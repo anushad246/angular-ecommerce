@@ -62,7 +62,7 @@ export class AddEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.userId = params['id'];
-      console.log('User ID:', this.userId);
+
     });
   }
 

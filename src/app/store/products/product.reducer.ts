@@ -2,6 +2,27 @@ import { createReducer, on } from '@ngrx/store';
 import { ProductsState, Product } from './product.model';
 import * as ProductActions from './product.actions';
 
+// Helper functions for common state mutations
+const setLoading = (state: ProductsState): ProductsState => ({
+  ...state,
+  loading: true,
+  error: null,
+});
+
+const setSuccess = (state: ProductsState): ProductsState => ({
+  ...state,
+  loading: false,
+  error: null,
+});
+
+const setError =
+  (error: string) =>
+  (state: ProductsState): ProductsState => ({
+    ...state,
+    loading: false,
+    error,
+  });
+
 const sampleProducts: Product[] = [
   {
     id: '1',
@@ -49,88 +70,62 @@ export const productReducer = createReducer(
   initialProductsState,
 
   // Load Products
-  on(ProductActions.loadProducts, (state) => ({
-    ...state,
-    loading: true,
-    error: null,
-  })),
+  on(ProductActions.loadProducts, setLoading),
 
   on(ProductActions.loadProductsSuccess, (state, { products }) => ({
-    ...state,
+    ...setSuccess(state),
     items: products,
-    loading: false,
-    error: null,
   })),
 
-  on(ProductActions.loadProductsFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
+  on(ProductActions.loadProductsFailure, (state, { error }) =>
+    setError(error)(state)
+  ),
 
   // Load Product Detail
-  on(ProductActions.loadProductDetail, (state) => ({
-    ...state,
-    loading: true,
-    error: null,
-  })),
+  on(ProductActions.loadProductDetail, setLoading),
 
   on(ProductActions.loadProductDetailSuccess, (state, { product }) => ({
-    ...state,
+    ...setSuccess(state),
     selectedProduct: product,
-    loading: false,
-    error: null,
   })),
 
-  on(ProductActions.loadProductDetailFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
+  on(ProductActions.loadProductDetailFailure, (state, { error }) =>
+    setError(error)(state)
+  ),
 
   // Add Product
   on(ProductActions.addProductSuccess, (state, { product }) => ({
-    ...state,
+    ...setSuccess(state),
     items: [...state.items, product],
-    loading: false,
-    error: null,
   })),
 
-  on(ProductActions.addProductFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
+  on(ProductActions.addProductFailure, (state, { error }) =>
+    setError(error)(state)
+  ),
 
   // Update Product
   on(ProductActions.updateProductSuccess, (state, { product }) => ({
-    ...state,
+    ...setSuccess(state),
     items: state.items.map((p) => (p.id === product.id ? product : p)),
     selectedProduct:
-      state.selectedProduct?.id === product.id ? product : state.selectedProduct,
-    loading: false,
-    error: null,
+      state.selectedProduct?.id === product.id
+        ? product
+        : state.selectedProduct,
   })),
 
-  on(ProductActions.updateProductFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
+  on(ProductActions.updateProductFailure, (state, { error }) =>
+    setError(error)(state)
+  ),
 
   // Delete Product
   on(ProductActions.deleteProductSuccess, (state, { id }) => ({
-    ...state,
+    ...setSuccess(state),
     items: state.items.filter((p) => p.id !== id),
-    loading: false,
-    error: null,
   })),
 
-  on(ProductActions.deleteProductFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
+  on(ProductActions.deleteProductFailure, (state, { error }) =>
+    setError(error)(state)
+  ),
 
   // Clear Selected Product
   on(ProductActions.clearSelectedProduct, (state) => ({

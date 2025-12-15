@@ -1,12 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrl: './form.component.scss'
+  styleUrl: './form.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCardModule,
+  ]
 })
 export class FormComponent implements OnInit {
   employeeForm!: FormGroup;
@@ -66,16 +84,11 @@ export class FormComponent implements OnInit {
  
   private loadEmployeeData(): void {
     if (!this.employeeId) return;
-    
-
-    
-    console.log('Loading employee with ID:', this.employeeId);
   }
 
 
   onSubmit(): void {
     if (!this.employeeForm.valid) {
-      console.log('Form is invalid');
       return;
     }
 
@@ -89,11 +102,9 @@ export class FormComponent implements OnInit {
       //   id: this.employeeId,
       //   employee: formData
       // }));
-      console.log('Updating employee:', formData);
     } else {
       // Create new employee
       // this.store.dispatch(EmployeeActions.addEmployee({ employee: formData }));
-      console.log('Adding new employee:', formData);
     }
 
     // Simulate async operation

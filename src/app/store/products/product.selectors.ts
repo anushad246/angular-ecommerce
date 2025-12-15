@@ -1,8 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ProductsState } from './product.model';
+import { ProductsState, Product } from './product.model';
 
 export const selectProductsFeature = createFeatureSelector<ProductsState>('products');
 
+// Base selectors
 export const selectAllProducts = createSelector(
   selectProductsFeature,
   (state: ProductsState) => state.items
@@ -23,22 +24,46 @@ export const selectSelectedProduct = createSelector(
   (state: ProductsState) => state.selectedProduct
 );
 
+// Derived selectors
 export const selectProductById = (id: string) =>
-  createSelector(selectAllProducts, (products) =>
-    products.find((product) => product.id === id)
+  createSelector(
+    selectAllProducts,
+    (products: Product[]) => products.find((product) => product.id === id)
   );
 
 export const selectProductsByCategory = (category: string) =>
-  createSelector(selectAllProducts, (products) =>
-    products.filter((product) => product.category === category)
+  createSelector(
+    selectAllProducts,
+    (products: Product[]) =>
+      products.filter((product) => product.category === category)
   );
 
 export const selectInStockProducts = createSelector(
   selectAllProducts,
-  (products) => products.filter((product) => product.inStock)
+  (products: Product[]) => products.filter((product) => product.inStock)
 );
 
 export const selectProductCount = createSelector(
   selectAllProducts,
-  (products) => products.length
+  (products: Product[]) => products.length
 );
+
+// Memoized combined selectors for better performance
+export const selectProductsWithLoadingState = createSelector(
+  selectAllProducts,
+  selectProductsLoading,
+  selectProductsError,
+  (items, loading, error) => ({ items, loading, error })
+);
+
+export const selectInStockProductCount = createSelector(
+  selectInStockProducts,
+  (products: Product[]) => products.length
+);
+
+export const selectProductsByPriceRange = (minPrice: number, maxPrice: number) =>
+  createSelector(
+    selectAllProducts,
+    (products: Product[]) =>
+      products.filter((p) => p.price >= minPrice && p.price <= maxPrice)
+  );

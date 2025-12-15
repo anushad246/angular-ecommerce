@@ -10,7 +10,17 @@ export const selectUser = createSelector(
 
 export const selectToken = createSelector(
   selectAuthFeature,
-  (state: AuthState) => state.token
+  (state: AuthState) => state.accessToken
+);
+
+export const selectAccessToken = createSelector(
+  selectAuthFeature,
+  (state: AuthState) => state.accessToken
+);
+
+export const selectRefreshToken = createSelector(
+  selectAuthFeature,
+  (state: AuthState) => state.refreshToken
 );
 
 export const selectIsAuthenticated = createSelector(
@@ -30,15 +40,16 @@ export const selectAuthError = createSelector(
 
 export const selectUserRole = createSelector(
   selectUser,
-  (user) => user?.role || null
+  (user) => null 
 );
 
 export const selectIsAdmin = createSelector(
   selectUserRole,
-  (role) => role === 'admin'
+  (role) => false 
 );
 
 export const selectUserEmail = createSelector(
   selectUser,
   (user) => user?.email || null
 );
+

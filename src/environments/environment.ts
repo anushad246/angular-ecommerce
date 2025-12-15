@@ -2,19 +2,18 @@
 export const environment = {
   name: 'DEVELOPMENT',
   production: false,
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'https://dummyjson.com',
   apiEndpoints: {
-    products: '/products',
-    employees: '/employees',
-    auth: '/auth'
+    auth: '/auth',
+    products: '/api/products',
   },
   cache: {
-    enabled: false,
-    duration: 0
+    enabled: true,
+    duration: 60000
   },
   logging: {
-    enabled: true,
-    level: 'debug'
+    enabled: false,
+    level: 'error'
   },
   features: {
     authentication: true,

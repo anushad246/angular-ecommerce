@@ -34,30 +34,24 @@ export class ProductDetailsComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(product => {
         this.product = product;
-        console.log('✓ Product data received in component:', product);
       });
 
     this.loading$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(loading => {
         this.loading = loading;
-        console.log('✓ Loading state:', loading);
       });
 
     this.error$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(error => {
         this.error = error;
-        if (error) {
-          console.error('✗ Error loading product:', error);
-        }
       });
 
     this.products$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(products => {
         this.products = products;
-        console.log('✓ Products list received in component:', products);
       });
   }
 
